@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: #2a2c42;
+}
+.scale-box {
+    transform-origin: 0 0;
+    position: absolute;
+    left: 49.9%;
+    top: 0;
+    transition: 0.3s;
+}
+
+#app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: #fff;
+}
