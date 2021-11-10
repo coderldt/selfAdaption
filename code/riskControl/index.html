@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.1.2/echarts.common.min.js"></script>
+</head>
+
+<body>
+  <div id="app" class="scale-box" :style="{ width, height, transform: `scale(${scale}) translate(-50%, 0)` }">
+    <div class="commonTitle">
+      供应链金融平台管理驾驶舱
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+      <div class="hypotenuse"></div>
+      <div class="hypotenuse hypotenuseright"></div>
+      <div class="lin3hypotenuse"></div>
+      <div class="lin3hypotenuse lin3hypotenuseright"></div>
+      <div class="line4"></div>
+      <div class="line4 line5"></div>
+    </div>
+    
+    <div class="time">{{ time.day }} <span>{{ time.week }}</span> {{ time.hour }}</div>
+    <!-- 地图 -->
+    <div id="map"></div>
+
+    <!-- 资产数据统计 table -->
+    <div class="box2 otherwidth commomBox">
+      <div class="title">
+        <div class="sign"></div>
+        <div class="sign"></div>
+        <span>资产数据统计</span>
+        <div class="half"></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
+      </div>
+      <div class="content">
+        <table>
+          <tr>
+            <td v-for="(item, index) in assetStatistics.heads" :key="index + 'heads'">{{ item }}</td>
+          </tr>
+          <tr>
+            <td v-for="(item, index) in assetStatistics.total" :key="index + 'total'">{{ item }}</td>
+          </tr>
+          <tr>
+            <td v-for="(item, index) in assetStatistics.money" :key="index + 'money'">{{ item }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- 业务发放金额变化趋势 changeTrend -->
+    <div class="box3 otherwidth commomBox">
+      <div class="title">
+        <div class="sign"></div>
+        <div class="sign"></div>
+        <span>业务发放金额变化趋势</span>
+        <div class="half"></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
+      </div>
+      <div class="content" id="changeTrend">
+      </div>
+    </div>
+
+    <!-- 不良率预警 rateWarning -->
+    <div class="box4 commomBox">
+      <div class="title">
+        <div class="sign"></div>
+        <div class="sign"></div>
+        <span>不良率预警</span>
+        <div class="half"></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
+      </div>
+      <div class="content" id="rateWarning">
+      </div>
+    </div>
+
+    <!-- 业务发放笔变化趋势 businessDistribution -->
+    <div class="box5 otherwidth commomBox">
+      <div class="title">
+        <div class="sign"></div>
+        <div class="sign"></div>
+        <span>业务发放笔变化趋势</span>
+        <div class="half"></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
+      </div>
+      <div class="content" id="businessDistribution">
+      </div>
+    </div>
+
+    <!-- 分类统计 -->
+    <div class="box6 otherwidth commomBox">
+      <div class="content" id="species">
+        <div class="specItem" v-for="(item, index) in speciesList" :key="index" :style="getCurrentStyle(index)">
+          <div class="title">{{ item.title }}</div>
+          <div class="circle" :style="{ border: getCurrentStyle(index).border }">
+            <div class="value">{{ item.value }}</div>
+            <div class="unit">{{ item.unit }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 三十天内到期业务金额 -->
+    <div class="box7 otherwidth">
+      <div class="title">三十天内到期业务金额</div>
+      <div class="content" id="amountDue">
+        <div class="amountItem commonSmallBox">
+          <div class="triangle"></div>
+          <div class="triangleBgc"></div>
+          <div class="decorate"></div>
+          <div class="decorateTop"></div>
+          <div class="line"></div>
+          <div class="msg">
+            <div class="label">保理总额</div>
+            <div class="value">
+              <span>{{ totalFactoring }}</span> 万元
+            </div>
+          </div>
+        </div>
+        <div class="amountItem commonSmallBox">
+          <div class="sign">
+            <div class="triangle"></div>
+            <div class="triangleBgc"></div>
+            <div class="decorate"></div>
+            <div class="decorateTop"></div>
+            <div class="line"></div>
+            <div class="msg">
+              <div class="label">ABS、ABN总额</div>
+              <div class="value">
+                <span>{{ totalFactoring }}</span> 万元
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css' rel='stylesheet' />
+  <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.10.6/dayjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="./data/areas.js"></script>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>

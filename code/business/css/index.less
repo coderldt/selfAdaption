@@ -1,0 +1,271 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #2a2c42;
+}
+
+.scale-box{
+  transform-origin: 0 0;
+  position: absolute;
+  left: 49.9%;
+  top: 0;
+  transition: 0.3s;
+}
+
+.elli {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#app {
+  position: relative;
+}
+
+h1 {
+  padding-top: 20px;
+  font-size: 4em;
+  color: #999966; 
+  text-align: center;
+}
+
+// 业务变化趋势
+.box1 {
+  position: absolute;
+  width: 25%;
+  left: 0;
+  top: 140px;
+}
+
+// 中间统计信息
+.Statistics {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+
+  .time {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 64px 0 0;
+    color: #c3cbd9;
+    text-align: center;
+
+    span {
+      margin: 0 20px;
+    }
+  }
+
+  .StatisticsMsg {
+    display: flex;
+    width: 84%;
+    margin: 40px auto 0;
+    color: #fff;
+
+    .title {
+      width: 200px;
+      margin: 15px 0;
+      padding: 20px 0;
+      text-align: center;
+      > div:nth-child(1) {
+        font-size: 27px;
+        font-weight: 600;
+      }
+      > div:nth-child(2) {
+        font-size: 17px;
+      }
+    }
+
+    .count {
+      flex: 1;
+      margin-left: 36px;
+      display: flex;
+
+      .countItem {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 800;
+        font-size: 80px;
+        height: 120px;
+        border: 3px solid #a8c0d6;
+        background-color: #283968;
+      }
+
+      .countItem {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .gradual {
+    margin: 10px auto;
+    width: 80%;
+    height: 5px;
+    background: linear-gradient(to right, #171a32, #0e3348 20%, #58d2d6 50%, #0d374e 70%, #171a32);
+  }
+}
+
+// 风险预警
+.box2 {
+  position: absolute;
+  width: 25%;
+  top: 140px;
+  right: 0;
+}
+
+// 准入数据
+.box3 {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  top: calc(140px + 268px + 30px);
+  bottom: 30px;
+  left: 0;
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    > div {
+      position: relative;
+      flex: 1;
+      margin-bottom: 10px;
+    }
+
+    > div:nth-last-child(1) {
+      margin-bottom: 0;
+    }
+
+    #accessData,
+    #safetyCheck,
+    #tuneOut {
+      width: 100%;
+      height: 100%;
+    }
+
+    .otherMsg {
+      position: absolute;
+      right: 16px;
+      top: 24px;
+      color: #798b9b;
+      font-size: 13px;
+    }
+
+    .val {
+      font-weight: 600;
+      color: #ff9900;
+    }
+
+    .otherMsg.count {
+      top: 18px;
+    }
+    .otherMsg.money {
+      top: 32px;
+    }
+  }
+}
+
+.box4 {
+  left: auto;
+  right: 0;
+
+  .content {
+    #antiFraudRule,
+    #safetyCheckRule,
+    #businessRiskRule {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.box5 {
+  position: absolute;
+  left: 27%;
+  right: 27%;
+  top: calc(140px + 268px + 30px);
+
+  #dataStatistics {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin: 20px 0;
+    height: 142px;
+
+    .dataItem {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 30%;
+      height: 100%;
+      border-radius: 10px;
+      font-weight: 700;
+      background: linear-gradient(180deg, #557888, #322f36 75%, #3c3538 85%, #4c403c);
+
+      .title {
+        color: #dec39e;
+        font-size: 22px;
+        margin-bottom: 25px;
+      }
+
+      .val {
+        color: #f6ad51;
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+.box6 {
+  top: calc(140px + 268px + 88px + 178px);
+
+  #concentration {
+    display: flex;
+    margin: 0 85px;
+    height: 140px;
+    .left {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 13px;
+
+      .val {
+        color: #60f2f3;
+      }
+
+      .obligor,
+      .creditor {
+        padding: 10px;
+        background: #132c44;
+      }
+
+      .obligor {
+        margin-bottom: 10px;
+      }
+    }
+
+    #echarts {
+      flex: 3;
+      height: 100%;
+    }
+  }
+}
+
+.box7 {
+  top: calc(140px + 268px + 102px + 178px + 178px);
+  #score {
+    height: 140px;
+  }
+}

@@ -1,0 +1,371 @@
+// 有背景
+.commomBox {
+  >.title {
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 1em;
+    color: #fff;
+    padding: .7em 0 .4em;
+    border-left: 4px solid #24cddc;
+    border-radius: 0 50% 50% 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: -1px;
+      width: 45%;
+      border-top: 4px solid #24cddc;
+    }
+
+    .sign {
+      width:7px; 
+      height: 1em;
+      transform: skewX(33deg);
+      background-color: #24cddc;
+    }
+
+    .sign {
+      margin-left: 10px;
+    }
+
+    .sign + .sign {
+      margin-left: 5px;
+      margin-right: 10px;
+    }
+
+    .half {
+      position: absolute;
+      top: -1.1px;
+      left: 45%;
+      width: 4px;
+      height: 1.4em;
+      transform: skewX(33deg);
+      background-color: #24cddc;
+    }
+
+    .line {
+      position: absolute;
+      top: 20px;
+      left: 47.2%;
+      width: 53%;
+      height: 2px;
+      background-color: #2696a8;
+    }
+
+    .decorate {
+      position: absolute;
+      top: -4.1px;
+      left: 49%;
+      width: 35%;
+      height: .9em;
+      transform: skewX(342deg);
+      background-color: #1f8699;
+    }
+
+    span {
+      z-index: 99;
+    }
+  } 
+
+  >.content {
+    position: relative;
+    background-color: #283d58aa;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -28px;
+      left: 0;
+      width: 42%;
+      height: 28px;
+      background-color: #2f4e77aa;
+      opacity: 0.5;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: -29px;
+      left: 42%;
+      width: 0;
+      height: 0;
+      border-bottom: 29px solid #2f4e77aa;
+      border-right: 20px solid transparent;
+      opacity: 0.5;
+    }
+  }
+}
+
+// 无背景
+.commomNoBackBox {
+  >.title {
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 1em;
+    color: #fff;
+    padding: .7em 0 .4em;
+    border-left: 4px solid #24cddc;
+    border-radius: 0 50% 50% 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: -1px;
+      width: 45%;
+      border-top: 4px solid #24cddc;
+    }
+
+    .sign {
+      width:7px; 
+      height: 1em;
+      transform: skewX(33deg);
+      background-color: #24cddc;
+    }
+
+    .sign {
+      margin-left: 10px;
+    }
+
+    .sign + .sign {
+      margin-left: 5px;
+      margin-right: 10px;
+    }
+
+    .half {
+      position: absolute;
+      top: -1.1px;
+      left: 45%;
+      width: 4px;
+      height: 1.4em;
+      transform: skewX(33deg);
+      background-color: #24cddc;
+    }
+
+    .line {
+      position: absolute;
+      top: 20px;
+      left: 46.2%;
+      width: 53%;
+      height: 2px;
+      background-color: #2696a8;
+    }
+
+    .decorate {
+      position: absolute;
+      top: -4.1px;
+      left: 49%;
+      width: 35%;
+      height: .9em;
+      transform: skewX(342deg);
+      background-color: #1f8699;
+    }
+
+    span {
+      z-index: 99;
+    }
+  } 
+
+  >.content {
+    position: relative;
+  }
+}
+
+.otherwidth {
+  width: 25% !important;
+}
+
+.centerWidth {
+  left: 26% !important;
+  right: 26% !important;
+}
+
+.commonSmallBox {
+  border: 4px solid #24cddc;
+  box-sizing: border-box;
+  background: #283d58aa;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 12%;
+    width: calc(100% + 9.8px);
+    height: 74%;
+    background: #283d58aa;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    bottom: -5px;
+    width: 86%;
+    height: 6px;
+    background: #283d58aa;
+  }
+
+  .triangle {
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+    width: 0;
+    height: 0;
+    border-bottom: 21px solid #2a2c42;
+    z-index: 2;
+    border-left: 21px solid transparent;
+  }
+
+  .triangleBgc {
+    position: absolute;
+    right: -4px;
+    bottom: -4px;
+    width: 0;
+    height: 0;
+    border-bottom: 26px solid #24c9d9;
+    z-index: 1;
+    border-left: 26px solid transparent;
+  }
+
+  .decorate {
+    position: absolute;
+    bottom: -4px;
+    right: 19px;
+    width: 35%;
+    height: 9px;
+    z-index: 3;
+    transform: skewX(314deg);
+    background-color: #0099ffaa;
+  }
+
+  .decorateTop {
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    width: 35%;
+    height: 9px;
+    z-index: 3;
+    transform: skewX(314deg);
+    background-color: #0099ffaa;
+  }
+
+  .line {
+    position: absolute;
+    top: 8px;
+    left: 41%;
+    width: 56%;
+    height: 1px;
+    z-index: 3;
+    background-color: #245c87aa;
+  }
+}
+
+.commonTitle {
+  position: relative;
+  font-size: 34px;
+  text-align: center;
+  font-weight: 700;
+  color: #999966;
+  margin-top: 20px;
+
+  .line1 {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #171a32, #03eeef 20%, #03eeef 80%, #171a32) ;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: -1px;
+      width: 24%;
+      height: 6px;
+      background-color: #2a2c42;
+      transform: translateX(-50%);
+    }
+  }
+
+  .line2 {
+    position: absolute;
+    top: 88px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0 auto;
+    width: 19.4%;
+    height: 3px;
+    background: #03eeef;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: -1px;
+      width: 24%;
+      height: 6px;
+      background-color: #2a2c42;
+      transform: translateX(-50%);
+    }
+  }
+
+  .hypotenuse {
+    position: absolute;
+    left: 37.5%;
+    top: 65px;
+    width: 61px;
+    height: 1px;
+    border-bottom: 4px solid #03eeef;
+    transform: rotate(45deg);
+  }
+
+  .hypotenuseright {
+    right: 37.5%;
+    left: auto;
+    transform: rotate(-45deg);
+  }
+
+  .line3 {
+    position: absolute;
+    top: 74px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0 auto;
+    width: 3.2%;
+    height: 3px;
+    background: #03eeef;
+  }
+
+  .lin3hypotenuse {
+    position: absolute;
+    left: 47.4%;
+    top: 80px;
+    width: 21px;
+    height: 1px;
+    border-bottom: 4px solid #03eeef;
+    transform: rotate(319deg);
+  }
+
+  .lin3hypotenuseright {
+    right: 47.4%;
+    left: auto;
+    transform: rotate(-319deg);
+  }
+
+  .line4 {
+    position: absolute;
+    left: 0;
+    top: 70px;
+    width: 38%;
+    height: 4px;
+    background: linear-gradient(90deg, #161e36, #63f9fa 20%, #202942 20% , #215e84 60%, #1f2139);
+  }
+
+  .line5 {
+    right: 0;
+    left: auto;
+    transform: rotate(180deg);
+  }
+}
