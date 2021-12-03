@@ -161,13 +161,6 @@ new Vue({
                 show: false,
                 position: 'center'
               },
-              emphasis: {
-                label: {
-                  show: true,
-                  fontSize: '40',
-                  fontWeight: 'bold'
-                }
-              },
               labelLine: {
                 show: false
               },
