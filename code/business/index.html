@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,12 +8,14 @@
   <title>Document</title>
   <link rel="stylesheet" href="./css/common.css">
   <link rel="stylesheet" href="./css/index.css">
-  <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.1.2/echarts.common.min.js"></script>
+  <link rel="stylesheet" href="./relyOn/element-ui.css">
+  <script src="./relyOn/echarts.js"></script>
 </head>
+
 <body>
-  <div id="app" class="scale-box" :style="{ width, height, transform: `scale(${scale}) translate(-50%, 0)`, padding: '20px 0 0 0' }" >
+  <div id="app" class="scale-box" :style="{ width, height, transform: `scale(${scale}) translate(-50%, 0)` }">
     <div class="commonTitle">
-      供应链金融平台风险监控大屏
+      供应链金融平台管理驾驶舱
       <div class="line1"></div>
       <div class="line2"></div>
       <div class="line3"></div>
@@ -23,169 +26,136 @@
       <div class="line4"></div>
       <div class="line4 line5"></div>
     </div>
-    <!-- <h1></h1> -->
+    
+    <div class="time">{{ time.day }} <span>{{ time.week }}</span> {{ time.hour }}</div>
+    <!-- 地图 -->
+    <iframe class="map" src="./map.html" frameborder="0"></iframe>
+    <!-- <div id="map"></div> -->
 
-    <!-- 业务发笔数变化趋势 -->
-    <div class="box1 otherwidth commomBox">
-      <div class="title">
-        <div class="sign"></div>
-        <div class="sign"></div>
-        <span>业务发笔数变化趋势</span>
-        <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
-      </div>
-      <div class="content" id="businessTransactions" style="width: 100%; height: 230px"></div>
-    </div>
-
-    <!-- 中间统计信息 -->
-    <div class="Statistics">
-      <div class="time">{{ time.day }} <span>{{ time.week }}</span> {{ time.hour }}</div>
-      <div class="StatisticsMsg">
-        <div class="title commonTopLine">
-          <div>风险资产总额</div>
-          <div>（单位：亿元）</div>
-          <div class="commonBottomLine"></div>
-        </div>
-        <div class="count">
-          <div class="countItem" v-for="(item, index) in formatCount" :key="index" >{{ item }}</div>
-        </div>
-      </div>
-      <div class="gradual"></div>
-    </div>
-
-    <!-- 风险预警信号分布 -->
+    <!-- 资产数据统计 table -->
     <div class="box2 otherwidth commomBox">
       <div class="title">
         <div class="sign"></div>
         <div class="sign"></div>
-        <span>风险预警信号分布</span>
+        <span>资产数据统计</span>
         <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
-      </div>
-      <div class="content" id="riskWarning" style="width: 100%; height: 230px"></div>
-    </div>
-
-    <!-- 准入数据 -->
-    <div class="box3 otherwidth commomNoBackBox" >
-      <div class="title">
-        <div class="sign"></div>
-        <div class="sign"></div>
-        <span>准入数据</span>
-        <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
       </div>
       <div class="content">
-        <div>
-          <div id="accessData"></div>
-          <span class="otherMsg">今日进入企业数量：<span class="val">{{ accessDataCount }}</span></span>
-        </div>
-        <div>
-          <div id="safetyCheck"></div>
-          <span class="otherMsg count">今日通过安检门数量：<span class="val ">{{ safetyCheckCount }}</span></span>
-          <span class="otherMsg money">今日通过安检门金额：<span class="val ">{{ safetyCheckMoney }}</span></span>
-        </div>
-        <div>
-          <div id="tuneOut"></div>
-          <span class="otherMsg">今日尽调企业数量：<span class="val">{{ tuneOutCount }}</span></span>
-        </div>
+        <table>
+          <tr>
+            <td v-for="(item, index) in assetStatistics.heads" :key="index + 'heads'">{{ item }}</td>
+          </tr>
+          <tr>
+            <td v-for="(item, index) in assetStatistics.total" :key="index + 'total'">{{ item }}</td>
+          </tr>
+          <tr>
+            <td v-for="(item, index) in assetStatistics.money" :key="index + 'money'">{{ item }}</td>
+          </tr>
+        </table>
       </div>
     </div>
 
-    <!-- 规则分布 -->
-    <div class="box3 otherwidth box4 commomNoBackBox" >
+    <!-- 业务发放金额变化趋势 changeTrend -->
+    <div class="box3 otherwidth commomBox">
       <div class="title">
         <div class="sign"></div>
         <div class="sign"></div>
-        <span>规则分布</span>
+        <span>业务发放金额变化趋势</span>
         <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
       </div>
-      <div class="content">
-        <!-- 多一层为了和准入数据保持结构 -->
-        <div>
-          <div id="antiFraudRule"></div>
-        </div>
-        <div>
-          <div id="safetyCheckRule"></div>
-        </div>
-        <div>
-          <div id="businessRiskRule"></div>
-        </div>
+      <div class="content" id="changeTrend">
       </div>
     </div>
 
-    <!-- 数据统计 -->
-    <div class="box5 centerWidth commomNoBackBox" >
+    <!-- 不良率预警 rateWarning -->
+    <div class="box4 commomBox">
       <div class="title">
         <div class="sign"></div>
         <div class="sign"></div>
-        <span>数据统计</span>
+        <span>不良率预警</span>
         <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
       </div>
-      <div class="content" id="dataStatistics">
-        <div class="dataItem">
-          <div class="title">风险监控企业数</div>
-          <div class="val">{{ dataStatis.businessRiskCount }} 个</div>
-        </div>
-        <div class="dataItem">
-          <div class="title">不良资产率</div>
-          <div class="val">{{ dataStatis.nonPerformingAssetsRatio }} %</div>
-        </div>
-        <div class="dataItem">
-          <div class="title">债务关联交易占比</div>
-          <div class="val">{{ dataStatis.proportionRatio }} %</div>
-        </div>
+      <div class="content" id="rateWarning">
       </div>
     </div>
 
-    <!-- 集中度 -->
-    <div class="box6 box5 centerWidth commomNoBackBox" >
+    <!-- 业务发放笔变化趋势 businessDistribution -->
+    <div class="box5 otherwidth commomBox">
       <div class="title">
         <div class="sign"></div>
         <div class="sign"></div>
-        <span>单一债权人集中度</span>
+        <span>业务发放笔变化趋势</span>
         <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
       </div>
-      <div class="content" id="concentration">
-        <div class="left">
-          <div class="obligor commonTopLine">
-            <div class="commonBottomLine"></div>
-            <div class="title">单一债务人集中度</div>
-            <div class="val">{{ concentration.obligorCount }} %</div>
-          </div>
-          <div class="creditor commonTopLine">
-            <div class="commonBottomLine"></div>
-            <div class="title">单一债券人集中度</div>
-            <div class="val">{{ concentration.creditorCount }} %</div>
+      <div class="content" id="businessDistribution">
+      </div>
+    </div>
+
+    <!-- 分类统计 -->
+    <div class="box6 otherwidth commomBox">
+      <div class="content" id="species">
+        <div class="specItem" v-for="(item, index) in speciesList" :key="index" :style="getCurrentStyle(index)">
+          <div class="title">{{ item.title }}</div>
+          <div class="circle" :style="{ border: getCurrentStyle(index).border }">
+            <div class="value">{{ item.value }}</div>
+            <div class="unit">{{ item.unit }}</div>
           </div>
         </div>
-        <div id="echarts"></div>
       </div>
     </div>
 
-    <!-- 评级分布 -->
-    <div class="box7 box5 centerWidth commomNoBackBox" >
-      <div class="title">
-        <div class="sign"></div>
-        <div class="sign"></div>
-        <span>主体评级分布</span>
-        <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+    <!-- 三十天内到期业务金额 -->
+    <div class="box7 otherwidth">
+      <div class="title">三十天内到期业务金额</div>
+      <div class="content" id="amountDue">
+        <div class="amountItem commonSmallBox">
+          <div class="triangle"></div>
+          <div class="triangleBgc"></div>
+          <div class="decorate"></div>
+          <div class="decorateTop"></div>
+          <div class="line"></div>
+          <div class="msg">
+            <div class="label">保理总额</div>
+            <div class="value">
+              <span>{{ totalFactoring }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="amountItem commonSmallBox">
+          <div class="sign">
+            <div class="triangle"></div>
+            <div class="triangleBgc"></div>
+            <div class="decorate"></div>
+            <div class="decorateTop"></div>
+            <div class="line"></div>
+            <div class="msg">
+              <div class="label">ABS、ABN总额</div>
+              <div class="value">
+                <span>{{ totalABN }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="content" id="score"></div>
     </div>
   </div>
-  <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.10.6/dayjs.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="./relyOn/dayJs.js"></script>
+  <script src="./relyOn/vue.js"></script>
+  <script src="./relyOn/vue-router.js"></script>
+  <script src="./relyOn/element-ui.js"></script>
+  <script src="./relyOn/axios.js"></script>
+  <script src="./js/countTo.js"></script>
+  <script src="./http/index.js"></script>
+  <script src="./http/http.js"></script>
   <script src="./js/index.js"></script>
 </body>
+
 </html>

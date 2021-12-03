@@ -1,6 +1,10 @@
+const router = new VueRouter()
 new Vue({
   el: '#app',
+  router,
   data: {
+    // width: '2075px',
+    // height: '1239px',
     width: '1800px',
     height: `1080px`,
     scale: 1,
@@ -10,18 +14,68 @@ new Vue({
       week: '',
       hour: ''
     },
-    assetStatistics: {
-      heads: [],
-      total: [],
-      money: []
+    count: 1180,
+    // 进入数据企业数量
+    accessDataCount: 0,
+    safetyCheckCount: 0,
+    safetyCheckMoney: 0,
+    tuneOutCount: 0,
+    dataStatis: {
+      assetAtRisk: {
+        name: '',
+        value: 0
+      },
+      monCompNum: {
+        name: '',
+        value: 0
+      },
+      nonPerfAssetRto: {
+        name: '',
+        value: 0
+      },
+      connTransRate: {
+        name: '',
+        value: 0
+      },
+      // businessRiskCount: 0,
+      // nonPerformingAssetsRatio: 2,
+      // proportionRatio: 10
     },
-    speciesList: [],
-    speciesColor: ['#4657ec', '#07fcfb', '#ffb74a', '#f0d2ab', '#4ccf96'],
-    totalFactoring: 0,
-    totalABN: 0,
-    map: null,
+    concentration: {
+      obligorCount: 0,
+      creditorCount: 0,
+    },
+    dateList,
+    concentrationList,
+    businessTransactionsValue: defaultValue,
+    riskWarningValue: defaultValue,
+    accessDataValue: defaultValue,
+    safetyCheckValue: defaultValue,
+    tuneOutValue: defaultValue,
+    antiFraudRuleValue: defaultValue,
+    safetyCheckRuleValue: defaultValue,
+    businessRiskRuleValue: defaultValue,
+    scoreValue: defaultValue,
+    concentrationValue: defaultconCentrationValue,
   },
   created() {
+    const loading = this.$loading({
+      lock: true,
+      text: '加载中',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0, 0, 0, 0.7)'
+    });
+    const { token } = this.$route.query
+    if (token) {
+      sessionStorage.setItem('token', token)
+      loading.close();
+    } else if (!sessionStorage.getItem('token')) {
+      this.$message.error('token丢失，数据请求失败。');
+      setTimeout(() => {
+        loading.close();
+      }, 2000);
+    }
+
     const setScale = this.debounce(() => {
       let ww = window.innerWidth / 1920
       let wh = window.innerHeight / 1080
@@ -42,385 +96,684 @@ new Vue({
     }, 500)
     setScale()
     window.addEventListener('resize', setScale)
+    this.$once('')
   },
   mounted() {
     this.time.day = dayjs().format('YYYY年MM月DD日')
     this.time.week = `星期${['一', '二', '三', '四', '五', '六', '日'][dayjs().get('day') - 1]}`
     this.time.hour = dayjs().format('HH:mm:ss')
-    this.mapInit()
-    this.getAssetStatistics()
-    this.getChangeTrend()
-    this.getRateWarning()
-    this.getBusinessDistribution()
-    this.getSpecies()
-    this.getMainMoney()
+    this.getBusinessTransactions()
+    this.getRiskWarning()
+    this.getAccessData()
+    this.getSafetyCheck()
+    this.getTuneOut()
+    this.getAntiFeaud()
+    this.getSafetyCheckRule()
+    this.getBusinessRiskRule()
+    this.getDataStatistics()
+    this.getConcentrationEcharts(defaultconCentrationValue)
+    this.getScore()
+    
   },
   computed: {
     formatCount() {
-      return String(this.count).split('')
-    },
-    getCurrentStyle() {
-      return function (index) {
-        const color = this.speciesColor[index]
-        return {
-          color,
-          border: '3px solid ' + color,
-          'box-shadow': `inset 0px 0px 13px ${color}99`
-        }
-      }
-    },
+      console.log(this.dataStatis.assetAtRisk);
+      return String(this.dataStatis.assetAtRisk.value).split('').map(item => Number(item))
+    }
   },
   methods: {
-    getAssetStatistics() {
-      this.assetStatistics.heads.push('统计项', '带融资资产', '平台资产', '累计发放资产', '在保资产')
-      this.assetStatistics.total.push('累计笔数', '555', 155, 255, 355)
-      this.assetStatistics.money.push('累计金额', '5972', 4444, 6666, 5500)
-    },
-    getChangeTrend() {
-      const option = {
-        tooltip: {
-          trigger: 'axis'
-        },
-        legend: {
-          textStyle: {
-            color: '#fff'
-          }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          top: '28%',
-          containLabel: true
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          data: ['11/1', '11/2', '11/3', '11/4', '11/5', '11/6'],
-          axisLabel: {
-            color: '#7a9bc3'
-          },
-        },
-        yAxis: {
-          type: 'value',
-          name: '单位（万元）',
-          nameTextStyle: {
-            color: '#7a9bc3'
-          },
-          axisLabel: {
-            color: '#7a9bc3'
-          },
-          minorSplitLine: {
-            lineStyle: {
-              // 使用深浅的间隔色
-              color: ['#aaa', '#ddd']
-            }
-          }
-        },
-        series: [
-          {
-            name: 'Email',
-            type: 'line',
-            stack: 'Total',
-            data: [120, 132, 101, 134, 90, 230]
-          },
-          {
-            name: 'Email1',
-            type: 'line',
-            stack: 'Total',
-            data: [171, 126, 93, 36, 151, 104]
-          },
-          {
-            name: 'Email2',
-            type: 'line',
-            stack: 'Total',
-            data: [148, 4, 69, 113, 115, 44]
-          },
-          {
-            name: 'Email3',
-            type: 'line',
-            stack: 'Total',
-            data: [127, 4, 146, 72, 110, 62]
-          },
-        ]
-      };
-
-      const myChart = echarts.init(document.getElementById('changeTrend'));
-      myChart.setOption(option);
-    },
-    getRateWarning() {
-      const option = {
-        tooltip: {
-          trigger: 'axis'
-        },
-        legend: {
-          textStyle: {
-            color: '#fff'
-          }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          top: '20%',
-          containLabel: true
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          data: ['11/1', '11/2', '11/3', '11/4', '11/5', '11/6'],
-          axisLabel: {
-            color: '#7a9bc3'
-          },
-        },
-        yAxis: {
-          type: 'value',
-          name: '单位（%）',
-          nameTextStyle: {
-            color: '#7a9bc3'
-          },
-          axisLabel: {
-            color: '#7a9bc3'
-          },
-          minorSplitLine: {
-            lineStyle: {
-              // 使用深浅的间隔色
-              color: ['#aaa', '#ddd']
-            }
-          }
-        },
-        series: [
-          {
-            name: 'Email',
-            type: 'line',
-            stack: 'Total',
-            data: [120, 132, 101, 134, 90, 230]
-          },
-          {
-            name: 'Email1',
-            type: 'line',
-            stack: 'Total',
-            data: [171, 126, 93, 36, 151, 104]
-          },
-          {
-            name: 'Email2',
-            type: 'line',
-            stack: 'Total',
-            data: [148, 4, 69, 113, 115, 44]
-          },
-          {
-            name: 'Email3',
-            type: 'line',
-            stack: 'Total',
-            data: [127, 4, 146, 72, 110, 62]
-          },
-        ]
-      };
-
-      const myChart = echarts.init(document.getElementById('rateWarning'));
-      myChart.setOption(option);
-    },
-    getBusinessDistribution() {
-      const option = {
-        tooltip: {
-          trigger: 'axis'
-        },
-        legend: {
-          textStyle: {
-            color: '#fff'
-          }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          top: '28%',
-          containLabel: true
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          data: ['11/1', '11/2', '11/3', '11/4', '11/5', '11/6'],
-          axisLabel: {
-            color: '#7a9bc3'
-          },
-        },
-        yAxis: {
-          type: 'value',
-          name: '单位（万元）',
-          nameTextStyle: {
-            color: '#7a9bc3'
-          },
-          axisLabel: {
-            color: '#7a9bc3'
-          },
-          minorSplitLine: {
-            lineStyle: {
-              // 使用深浅的间隔色
-              color: ['#aaa', '#ddd']
-            }
-          }
-        },
-        series: [
-          {
-            name: 'Email',
-            type: 'line',
-            stack: 'Total',
-            data: [120, 132, 101, 134, 90, 230]
-          },
-          {
-            name: 'Email1',
-            type: 'line',
-            stack: 'Total',
-            data: [171, 126, 93, 36, 151, 104]
-          },
-          {
-            name: 'Email2',
-            type: 'line',
-            stack: 'Total',
-            data: [148, 4, 69, 113, 115, 44]
-          },
-          {
-            name: 'Email3',
-            type: 'line',
-            stack: 'Total',
-            data: [127, 4, 146, 72, 110, 62]
-          },
-        ]
-      };
-
-      const myChart = echarts.init(document.getElementById('businessDistribution'));
-      myChart.setOption(option);
-    },
-    getSpecies() {
-      this.speciesList.push(
-        { title: '正向保障', value: '111', unit: '万元' },
-        { title: '反向保障', value: '100', unit: '万元' },
-        { title: '到货保障', value: '100', unit: '万元' },
-        { title: '星券', value: '100', unit: '万元' },
-        { title: 'ABS/ABN', value: '100', unit: '万元' },
-      )
-    },
-    getMainMoney() {
-      this.totalFactoring = 1020
-      this.totalABN = 1106
-    },
-    mapInit() {
-      mapboxgl.accessToken = 'pk.eyJ1IjoiY29kZXJsdG1iIiwiYSI6ImNrbWViOGQ4aDJ1MW0ycWp4MmlyOWkybjUifQ.eoR2Cs1QgekzXeyX6PqcPw';
-      this.map = new mapboxgl.Map({
-        container: 'map',
-        style: {
-          version: 8,
-          sources: {},
-          layers: [],
-          center: [105.10792, 31.80715],
-          zoom: 3.2305,
-        },
-        minZoom: 2.3,
-        maxZoom: 4.5,
-      });
-
-      window.map = this.map
-
-      this.map.on('load', () => {
-        this.addLayer()
-        this.addPointLayer()
-
-
-        setTimeout(() => {
-
+    // 项目风险事件次数
+    async getBusinessTransactions(intervalDay = 0) {
+      const res = await getProjRiskEventCnt({ intervalDay })
+      if (res.code == 200) {
+        const data = []
+        res.data.forEach(item => {
+          data.push({ value: item.value, name: item.name })
         })
-      })
+        const option = {
+          tooltip: {
+            trigger: 'item'
+          },
+          title: {
+            text: '项目风险时间次数',
+            left: 'center',
+            top: 20,
+            textStyle: {
+              color: '#fff'
+            }
+          },
+          legend: {
+            type: 'scroll',
+            right: '5%',
+            top: 'middle',
+            orient: 'vertical',
+            textStyle: {
+              color: "#fff"
+            }
+          },
+          series: [
+            {
+              type: 'pie',
+              center: ['40%', '55%'],
+              radius: ['40%', '60%'],
+              avoidLabelOverlap: false,
+              label: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: '40',
+                  fontWeight: 'bold'
+                }
+              },
+              labelLine: {
+                show: false
+              },
+              data
+            }
+          ]
+        };
+        const myChart = echarts.init(document.getElementById('businessTransactions'));
+        myChart.setOption(option);
+      }
     },
-    addLayer() {
-      console.log();
-      this.map.addSource('province', {
-        'type': 'geojson',
-        'data': areageojson
-      })
+    // 风险预警信号分布
+    async getRiskWarning(intervalDay = 0) {
+      const res = await getRiskWarnSignalDstr({ intervalDay })
+      if (res.code == 200) {
+        const data = []
+        res.data.forEach(item => {
+          data.push({ value: item.value, name: item.name })
+        })
 
-      this.map.addLayer({
-        source: 'province',
-        id: 'provinceFill',
-        type: "fill",
-        "paint": {
-          "fill-color": "#005281",
-        }
-      })
+        const option = {
+          tooltip: {
+            trigger: 'item',
+            formatter: '{b} : {c} ({d}%)'
+          },
+          legend: {
+            type: 'scroll',
+            right: '5%',
+            top: 'middle',
+            orient: 'vertical',
+            textStyle: {
+              color: "#fff"
+            }
+          },
+          series: [
+            {
+              type: 'pie',
+              radius: ['40%', '60%'],
+              center: ['40%', '50%'],
+              // roseType: 'area',
+              data
+            }
+          ]
+        };
 
-      this.map.addLayer({
-        source: 'province',
-        id: 'privinceLine',
-        type: "line",
-        "paint": {
-          "line-color": "#fff",
-        }
-      })
+        const myChart = echarts.init(document.getElementById('riskWarning'));
+        myChart.setOption(option);
+      }
     },
-    addPointLayer() {
-      const data = {
-        "type": "FeatureCollection",
-        "features": [{
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Point",
-            "coordinates": [
-              114.27755355834961, 30.58989817188057,
-            ]
+    // 准入数据 - 进入数据统计
+    async getAccessData(intervalDay = 0) {
+      const res = await getEntPass({ intervalDay })
+      
+      const xAxisList = []
+      const seriesList = []
+      let title = '企业准入数据统计'
+      if (res && res.code == 200) {
+        this.accessDataCount = res.data.data[0].value
+
+        res.data.data.reverse().forEach(item => {
+          xAxisList.push(item.dataTime)
+        })
+
+        res.data.data.forEach(item => {
+          seriesList.push(item.value)
+        })
+
+        title = res.data.name
+      }
+      const option = {
+        title: {
+          text: title,
+          textStyle: {
+            color: '#87aed8',
+            fontSize: '15'
+          },
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '3%',
+          right: '8%',
+          bottom: '3%',
+          top: '28%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: xAxisList,
+          axisLabel: {
+            color: '#7a9bc3'
+          },
+        },
+        yAxis: {
+          type: 'value',
+          name: '单位（个）',
+          nameTextStyle: {
+            color: '#7a9bc3'
+          },
+          axisLabel: {
+            color: '#7a9bc3'
+          },
+          minorSplitLine: {
+            lineStyle: {
+              // 使用深浅的间隔色
+              color: ['#aaa', '#ddd']
+            }
           }
-        }, {
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Point",
-            "coordinates": [117.46850663775967, 32.06144965315211]
-          }
-        }, {
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Point",
-            "coordinates": [119.041672209701, 36.21400681507957]
-          }
-        }, {
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Point",
-            "coordinates": [114.31171417236328, 30.58842044495832]
-          }
-        }, {
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Point",
-            "coordinates": [98.14104389468662, 25.818633679082637]
-          }
-        }, {
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Point",
-            "coordinates": [95.51910127447832, 21.775730567358593]
-          }
+        },
+        series: {
+          yAxisIndex: 0,
+          type: 'line',
+          stack: 'Total',
+          data: seriesList
+        },
+      };
+
+      const myChart = echarts.init(document.getElementById('accessData'));
+      myChart.setOption(option);
+    },
+    // 准入数据 - 已过安检门数据
+    async getSafetyCheck(intervalDay = 0) {
+      const res = await getScrtGate({ intervalDay })
+
+      const xAxisList = []
+      const seriesList = []
+      let title = '已过安检门数据/金额'
+      if (res && res.code == 200) {
+        const safetyCheckObj = res.data.find(i => i.name === '已过安检门数量')
+        if (safetyCheckObj && safetyCheckObj.data && safetyCheckObj.data.length) {
+          this.safetyCheckCount = safetyCheckObj.data[0].value
         }
+
+        const safetyCheckMoneyObj = res.data.find(i => i.name === '已过安检门金额')
+        if (safetyCheckMoneyObj && safetyCheckMoneyObj.data && safetyCheckMoneyObj.data.length) {
+          this.safetyCheckMoney = safetyCheckMoneyObj.data[0].value
+        }
+
+        res.data[0].data.forEach(item => {
+          xAxisList.push(item.dataTime)
+        })
+
+        res.data.forEach((item, index) => {
+          seriesList.push({
+            name: item.name,
+            yAxisIndex: index,
+            type: 'line',
+            stack: 'Total',
+            data: item.data.reverse().map(i => i.value)
+          })
+        })
+      }
+      const option = {
+        title: {
+          text: title,
+          textStyle: {
+            color: '#87aed8',
+            fontSize: '15'
+          },
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          top: '28%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: xAxisList.reverse(),
+          axisLabel: {
+            color: '#7a9bc3'
+          },
+        },
+        yAxis: [
+          {
+            type: 'value',
+            name: '单位（个/万元）',
+            nameTextStyle: {
+              color: '#7a9bc3'
+            },
+            axisLabel: {
+              color: '#7a9bc3'
+            },
+            minorSplitLine: {
+              lineStyle: {
+                // 使用深浅的间隔色
+                color: ['#aaa', '#ddd']
+              }
+            }
+          },
+          {
+            type: 'value',
+            inverse: true
+          }
+        ],
+        series: seriesList
+      };
+
+      const myChart = echarts.init(document.getElementById('safetyCheck'));
+      myChart.setOption(option);
+    },
+    // 准入数据 - 进尽调企业数量
+    async getTuneOut(intervalDay = 0) {
+      const res = await getEntDueDili({ intervalDay })
+      const xAxisList = []
+      const seriesList = []
+      let title = '尽调企业数量'
+      if (res && res.code == 200) {
+        if (res.data && res.data.data && res.data.data.length) {
+          this.tuneOutCount = res.data.data[0].value
+        }
+
+        res.data.data.reverse().forEach(item => {
+          xAxisList.push(item.dataTime)
+        })
+
+        res.data.data.forEach(item => {
+          seriesList.push(item.value)
+        })
+
+        title = res.data.name
+      }
+      const option = {
+        title: {
+          text: title,
+          textStyle: {
+            color: '#87aed8',
+            fontSize: '15'
+          },
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '3%',
+          right: '8%',
+          bottom: '3%',
+          top: '28%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: xAxisList,
+          axisLabel: {
+            color: '#7a9bc3'
+          },
+        },
+        yAxis: {
+          type: 'value',
+          name: '单位（个）',
+          nameTextStyle: {
+            color: '#7a9bc3'
+          },
+          axisLabel: {
+            color: '#7a9bc3'
+          },
+          minorSplitLine: {
+            lineStyle: {
+              // 使用深浅的间隔色
+              color: ['#aaa', '#ddd']
+            }
+          }
+        },
+        series: [
+          {
+            name: res.data.name,
+            type: 'line',
+            stack: 'Total',
+            data: seriesList
+          }
         ]
       };
-      this.map.addSource('point', {
-        type: 'geojson',
-        data
-      })
 
-      this.map.addLayer({
-        id: 'point',
-        source: 'point',
-        type: 'circle',
-        paint: {
-          'circle-color': '#ffb74a',
-          'circle-radius': 10
+      const myChart = echarts.init(document.getElementById('tuneOut'));
+      myChart.setOption(option);
+    },
+    // 规则分布 - 反欺诈命中规则分布
+    async getAntiFeaud(intervalDay = 0) {
+      const res = await getModelRuleDstr({ intervalDay })
+      let yList = []
+      let xList = []
+      if (res && res.code == 200) {
+        yList = res.data.data.slice(0, 5).map(item => item.name)
+        xList = res.data.data.slice(0, 5).map(item => item.value)
+      }
+      const option = {
+        title: {
+          text: '反欺诈命中规则分布',
+          textStyle: {
+            color: '#87aed8',
+            fontSize: '15'
+          },
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          top: '28%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'value',
+          axisLabel: {
+            color: '#f0d1a9'
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#f0d1a9'
+            }
+          }
+        },
+        yAxis: {
+          type: 'category',
+          // axisLine: { onZero: false },
+          boundaryGap: true,
+          data: yList,
+          axisLabel: {
+            color: '#f0d1a9'
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#f0d1a9'
+            }
+          }
+        },
+        series: [
+          {
+            type: 'bar',
+            data: xList
+          }
+        ]
+      };
+
+      const myChart = echarts.init(document.getElementById('antiFraudRule'));
+      myChart.setOption(option);
+    },
+    // 规则分布 - 安检门模型命中规则分布
+    async getSafetyCheckRule(intervalDay = 0) {
+      const res = await getModelScrtGate({ intervalDay })
+      let yList = []
+      let xList = []
+      let title = '安检门模型'
+      if (res && res.code == 200) {
+        yList = res.data.data.slice(0, 5).map(i => i.name)
+        xList = res.data.data.slice(0, 5).map(item => item.value)
+        title = res.data.name
+      }
+      const option = {
+        title: {
+          text: title,
+          textStyle: {
+            color: '#87aed8',
+            fontSize: '15'
+          },
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          top: '28%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'value',
+          axisLabel: {
+            color: '#f0d1a9'
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#f0d1a9'
+            }
+          }
+        },
+        yAxis: {
+          type: 'category',
+          // axisLine: { onZero: false },
+          boundaryGap: true,
+          data: yList,
+          axisLabel: {
+            color: '#f0d1a9'
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#f0d1a9'
+            }
+          }
+        },
+        series: [
+          {
+            type: 'bar',
+            data: xList
+          }
+        ]
+      };
+
+      const myChart = echarts.init(document.getElementById('safetyCheckRule'));
+      myChart.setOption(option);
+    },
+    // 规则分布 - 业务风险识别模型明命中规则分布
+    async getBusinessRiskRule(intervalDay = 0) {
+      const res = await getModelBusiness({ intervalDay })
+      let yList = []
+      let xList = []
+      if (res && res.code == 200) {
+        yList = res.data.data.slice(0, 5).map(i => i.name)
+        xList = res.data.data.slice(0, 5).map(item => item.value)
+      }
+      const option = {
+        title: {
+          text: '业务风险识别模型明命中规则分布',
+          textStyle: {
+            color: '#87aed8',
+            fontSize: '15'
+          },
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          top: '28%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'value',
+          axisLabel: {
+            color: '#0783d9'
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#0783d9'
+            }
+          }
+        },
+        yAxis: {
+          type: 'category',
+          boundaryGap: true,
+          data: yList,
+          axisLabel: {
+            color: '#0783d9',
+            formatter: function (val) {
+              return val.replace(/(.{9})/g, '$1\n')
+            },
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#0783d9'
+            }
+          }
+        },
+        series: [
+          {
+            type: 'bar',
+            data: xList
+          }
+        ]
+      };
+
+      const myChart = echarts.init(document.getElementById('businessRiskRule'));
+      myChart.setOption(option);
+    },
+    // 数据统计
+    async getDataStatistics() {
+      const res = await getRiskLgScrnParm()
+      if (res.code == 200) {
+        this.dataStatis = res.data
+        // this.dataStatis.businessRiskCount = 
+      }
+      // this.dataStatis.businessRiskCount = 55
+      // this.dataStatis.nonPerformingAssetsRatio = 2
+      // this.dataStatis.proportionRatio = res.data.connTransRate
+    },
+    // 单一债权人集中度
+    async getConcentrationEcharts(intervalMonth = 0) {
+      const res = await getRiskCreditorConc({ intervalMonth })
+      const legendList = []
+      const xAxisList = []
+      const seriesList = []
+      if (res && res.code == 200) {
+        const obligorDetail = res.data.find(i => i.name == '债务人')
+        if (obligorDetail && obligorDetail.data && obligorDetail.data.length) {
+          this.concentration.obligorCount = res.data.find(i => i.name == '债务人').data[0].value
         }
-      })
+        
+        const creditorDetail = res.data.find(i => i.name == '债权人')
+        if (creditorDetail && creditorDetail.data && creditorDetail.data.length) {
+          this.concentration.creditorCount = res.data.find(i => i.name == '债权人').data[0].value
+        }
+
+        res.data.forEach(item => {
+          legendList.push(item.name)
+        })
+
+        res.data[0].data.forEach(item => {
+          xAxisList.push(item.dataTime)
+        })
+
+        res.data.forEach(item => {
+          seriesList.push({
+            name: item.name,
+            type: 'bar',
+            data: item.data.reverse().map(i => i.value)
+          })
+        })
+      }
+      const option = {
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          top: '28%',
+          containLabel: true
+        },
+        legend: {
+          data: legendList,
+          textStyle: {
+            color: '#fff'
+          }
+        },
+        xAxis: {
+          type: 'category',
+          data: xAxisList.reverse(),
+          axisLabel: {
+            color: '#7a9bc3'
+          },
+        },
+        yAxis: {
+          type: 'value',
+          axisLabel: {
+            color: '#fff'
+          },
+        },
+        series: seriesList
+      };
+      const myChart = echarts.init(document.getElementById('echarts'));
+      myChart.setOption(option);
+    },
+    // 主体评级分布
+    async getScore(intervalDay = 0) {
+      const res = await getMainGradeDstr({ intervalDay })
+      let xList = []
+      let seriesList = []
+      if (res && res.code == 200) {
+        xList = res.data.data.reverse().map(item => item.name)
+        seriesList = res.data.data.map(item => item.value)
+      }
+      const option = {
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '0%',
+          top: '28%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          data: xList,
+          axisLabel: {
+            color: '#7a9bc3'
+          },
+        },
+        yAxis: {
+          type: 'value',
+          axisLabel: {
+            color: '#fff'
+          },
+        },
+        series: [
+          {
+            name: '主体评级分布',
+            type: 'bar',
+            data: seriesList
+          }
+        ]
+      };
+
+      const myChart = echarts.init(document.getElementById('score'));
+      myChart.setOption(option);
     },
     debounce(fun, delay) {
       return function (args) {
@@ -433,5 +786,4 @@ new Vue({
       }
     }
   },
-
 })

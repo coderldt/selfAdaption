@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #map {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .popup td{
+      position: relative;
+      border: 1px solid #eaeaea;
+      padding: 13px;
+      font-size: 17px;
+      z-index: 99999;
+    }
+
+    body {
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <script src="./relyOn/mapbox.js"></script>
+  <link rel="stylesheet" href="./relyOn/mapbox.css">
+  <script src="./relyOn/axios.js"></script>
+  <script src="./data/areas.js"></script>
+  <script src="./http/index.js"></script>
+  <script src="./http/http.js"></script>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiY29kZXJsdG1iIiwiYSI6ImNrbWViOGQ4aDJ1MW0ycWp4MmlyOWkybjUifQ.eoR2Cs1QgekzXeyX6PqcPw';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      // style: "mapbox://styles/mapbox/streets-v8",
+      style: {
+        version: 8,
+        sources: {},
+        layers: [],
+        center: [105.10792, 31.80715],
+      },
+      zoom: 3.4305,
+      center: [105.10792, 31.80715],
+      minZoom: 2.3,
+      maxZoom: 5.5,
+    });
+
+    map.on('load', () => {
+      getAssetDstr().then(res => {
+        if (res.code == 200) {
+          const data = res.data.filter(item => item.regionCode)
+          data.forEach(item => {
+            areageojson.features.find(i => {
+              if (i.properties.adcode == `${item.regionCode}0000`) {
+                i.properties.assetAmt = item.assetAmt
+                i.properties.assetNum = item.assetNum
+                i.properties.createTime = item.createTime
+              }
+            })
+          })
+
+          map.addSource('province', {
+            'type': 'geojson',
+            'data': areageojson
+          })
+
+          map.addLayer({
+            source: 'province',
+            id: 'provinceFill',
+            type: "fill",
+            "paint": {
+              "fill-color": "#005281",
+            }
+          })
+
+          map.addLayer({
+            source: 'province',
+            id: 'privinceLine',
+            type: "line",
+            "paint": {
+              "line-color": "#fff",
+            }
+          })
+
+          map.on('click', 'provinceFill', function (e) {
+            const { assetNum, assetAmt, createTime, name } = e.features[0].properties
+            const table = `
+              <table class="popup">
+                <tr>
+                  <td>地点</td>  
+                  <td>${name}</td>  
+                </tr>  
+                <tr>
+                  <td>资产笔数</td>  
+                  <td>${assetNum || '暂无数据'}</td>  
+                </tr>  
+                <tr>
+                  <td>资产金额</td>  
+                  <td>${assetAmt || '暂无数据'}</td>  
+                </tr>  
+                <tr>
+                  <td>创建时间</td>  
+                  <td>${createTime || '暂无数据'}</td>  
+                </tr>  
+              </table>
+            `
+            new mapboxgl.Popup()
+              .setLngLat(e.lngLat)
+              .setHTML(table)
+              .addTo(map);
+          });
+          map.on('mouseenter', 'provinceFill', function () {
+            map.getCanvas().style.cursor = 'pointer';
+          });
+
+          map.on('mouseleave', 'provinceFill', function () {
+            map.getCanvas().style.cursor = '';
+          });
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>

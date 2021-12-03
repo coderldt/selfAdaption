@@ -14,15 +14,6 @@ const areageojson = {
           116.41995,
           40.18994
         ],
-        "childrenNum": 16,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 0,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1019,15 +1010,6 @@ const areageojson = {
           117.347043,
           39.288036
         ],
-        "childrenNum": 16,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 1,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2068,15 +2050,6 @@ const areageojson = {
           114.502461,
           38.045474
         ],
-        "childrenNum": 11,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 2,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6661,15 +6634,6 @@ const areageojson = {
           112.304436,
           37.618179
         ],
-        "childrenNum": 11,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 3,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8566,15 +8530,6 @@ const areageojson = {
           114.077429,
           44.331087
         ],
-        "childrenNum": 12,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 4,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "Polygon",
@@ -16249,15 +16204,6 @@ const areageojson = {
           122.604994,
           41.299712
         ],
-        "childrenNum": 14,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 5,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19378,15 +19324,6 @@ const areageojson = {
           126.171208,
           43.703954
         ],
-        "childrenNum": 9,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 6,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22875,15 +22812,6 @@ const areageojson = {
           127.693027,
           48.040465
         ],
-        "childrenNum": 13,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 7,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -28248,15 +28176,6 @@ const areageojson = {
           121.438737,
           31.072559
         ],
-        "childrenNum": 16,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 8,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -28777,15 +28696,6 @@ const areageojson = {
           119.486506,
           32.983991
         ],
-        "childrenNum": 13,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 9,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -30602,15 +30512,6 @@ const areageojson = {
           120.109913,
           29.181466
         ],
-        "childrenNum": 11,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 10,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -33447,15 +33348,6 @@ const areageojson = {
           117.226884,
           31.849254
         ],
-        "childrenNum": 16,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 11,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -35884,15 +35776,6 @@ const areageojson = {
           118.006468,
           26.069925
         ],
-        "childrenNum": 9,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 12,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -38509,15 +38392,6 @@ const areageojson = {
           115.732975,
           27.636112
         ],
-        "childrenNum": 11,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 13,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -40662,15 +40536,6 @@ const areageojson = {
           118.187759,
           36.376092
         ],
-        "childrenNum": 16,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 14,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -43359,15 +43224,6 @@ const areageojson = {
           113.619717,
           33.902648
         ],
-        "childrenNum": 18,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 15,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -45856,15 +45712,6 @@ const areageojson = {
           112.271301,
           30.987527
         ],
-        "childrenNum": 17,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 16,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -48597,15 +48444,6 @@ const areageojson = {
           111.711649,
           27.629216
         ],
-        "childrenNum": 14,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 17,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -51146,15 +50984,6 @@ const areageojson = {
           113.429919,
           23.334643
         ],
-        "childrenNum": 21,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 18,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -54471,15 +54300,6 @@ const areageojson = {
           108.7944,
           23.833381
         ],
-        "childrenNum": 14,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 19,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -57308,15 +57128,6 @@ const areageojson = {
           109.754859,
           19.189767
         ],
-        "childrenNum": 19,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 20,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -61261,15 +61072,6 @@ const areageojson = {
           107.8839,
           30.067297
         ],
-        "childrenNum": 38,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 21,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -63670,15 +63472,6 @@ const areageojson = {
           102.693453,
           30.674545
         ],
-        "childrenNum": 21,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 22,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -68463,15 +68256,6 @@ const areageojson = {
           106.880455,
           26.826368
         ],
-        "childrenNum": 9,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 23,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -71160,15 +70944,6 @@ const areageojson = {
           101.485106,
           25.008643
         ],
-        "childrenNum": 16,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 24,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -75405,15 +75180,6 @@ const areageojson = {
           88.388277,
           31.56375
         ],
-        "childrenNum": 7,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 25,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -80942,15 +80708,7 @@ const areageojson = {
           108.887114,
           35.263661
         ],
-        "childrenNum": 10,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 26,
-        "acroutes": [
-          100000
-        ]
+        
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -83987,15 +83745,6 @@ const areageojson = {
           103.823557,
           36.058039
         ],
-        "childrenNum": 14,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 27,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -89184,15 +88933,6 @@ const areageojson = {
           96.043533,
           35.726403
         ],
-        "childrenNum": 8,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 28,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -93673,15 +93413,6 @@ const areageojson = {
           106.169866,
           37.291332
         ],
-        "childrenNum": 5,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 29,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -95170,15 +94901,6 @@ const areageojson = {
           85.294711,
           41.371801
         ],
-        "childrenNum": 24,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 30,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -100739,15 +100461,6 @@ const areageojson = {
           120.971485,
           23.749452
         ],
-        "childrenNum": 0,
-        "level": "province",
-        "parent": {
-          "adcode": 100000
-        },
-        "subFeatureIndex": 31,
-        "acroutes": [
-          100000
-        ]
       },
       "geometry": {
         "type": "MultiPolygon",

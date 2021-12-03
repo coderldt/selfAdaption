@@ -9,6 +9,7 @@ body {
   background-color: #2a2c42;
 }
 .scale-box {
+  position: relative;
   transform-origin: 0 0;
   position: absolute;
   left: 49.9%;
@@ -23,205 +24,166 @@ body {
 #app {
   position: relative;
 }
-h1 {
-  padding-top: 20px;
-  font-size: 4em;
-  color: #999966;
-  text-align: center;
-}
-.box1 {
-  position: absolute;
-  width: 25%;
-  left: 0;
-  top: 140px;
-}
-.Statistics {
-  position: absolute;
-  left: 25%;
-  right: 25%;
-}
-.Statistics .time {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 64px 0 0;
-  color: #c3cbd9;
-  text-align: center;
-}
-.Statistics .time span {
-  margin: 0 20px;
-}
-.Statistics .StatisticsMsg {
-  display: flex;
-  width: 84%;
-  margin: 40px auto 0;
-  color: #fff;
-}
-.Statistics .StatisticsMsg .title {
-  width: 200px;
-  margin: 15px 0;
-  padding: 20px 0;
-  text-align: center;
-}
-.Statistics .StatisticsMsg .title > div:nth-child(1) {
-  font-size: 27px;
-  font-weight: 600;
-}
-.Statistics .StatisticsMsg .title > div:nth-child(2) {
-  font-size: 17px;
-}
-.Statistics .StatisticsMsg .count {
-  flex: 1;
-  margin-left: 36px;
-  display: flex;
-}
-.Statistics .StatisticsMsg .count .countItem {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 800;
-  font-size: 80px;
-  height: 120px;
-  border: 3px solid #a8c0d6;
-  background-color: #283968;
-}
-.Statistics .StatisticsMsg .count .countItem {
-  margin-right: 20px;
-}
-.Statistics .gradual {
-  margin: 10px auto;
-  width: 80%;
-  height: 5px;
-  background: linear-gradient(to right, #171a32, #0e3348 20%, #58d2d6 50%, #0d374e 70%, #171a32);
-}
 .box2 {
   position: absolute;
-  width: 25%;
-  top: 140px;
   right: 0;
+  top: 140px;
+}
+.box2 .content {
+  height: 240px;
+}
+.box2 .content table {
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+.box2 .content table td {
+  border: 1px solid #eaeaea;
 }
 .box3 {
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  top: calc(140px + 268px + 30px);
-  bottom: 30px;
-  left: 0;
-}
-.box3 .content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.box3 .content > div {
-  position: relative;
-  flex: 1;
-  margin-bottom: 10px;
-}
-.box3 .content > div:nth-last-child(1) {
-  margin-bottom: 0;
-}
-.box3 .content #accessData,
-.box3 .content #safetyCheck,
-.box3 .content #tuneOut {
-  width: 100%;
-  height: 100%;
-}
-.box3 .content .otherMsg {
-  position: absolute;
-  right: 16px;
-  top: 24px;
-  color: #798b9b;
-  font-size: 13px;
-}
-.box3 .content .val {
-  font-weight: 600;
-  color: #ff9900;
-}
-.box3 .content .otherMsg.count {
-  top: 18px;
-}
-.box3 .content .otherMsg.money {
-  top: 32px;
-}
-.box4 {
-  left: auto;
+  top: calc(140px + 268px + 36px);
   right: 0;
 }
-.box4 .content #antiFraudRule,
-.box4 .content #safetyCheckRule,
-.box4 .content #businessRiskRule {
-  width: 100%;
-  height: 100%;
+.box3 .content {
+  height: 240px;
+}
+.box4 {
+  position: absolute;
+  top: calc(140px + 268px + 100px + 268px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.box4 .title .line {
+  left: 45.6%;
+  width: 54.5%;
+}
+.box4 .content {
+  height: calc(100% - 33px);
 }
 .box5 {
   position: absolute;
-  left: 27%;
-  right: 27%;
-  top: calc(140px + 268px + 30px);
+  top: calc(140px + 268px + 138px);
+  left: 0;
 }
-.box5 #dataStatistics {
-  display: flex;
-  justify-content: space-around;
-  text-align: center;
-  margin: 20px 0;
-  height: 142px;
-}
-.box5 #dataStatistics .dataItem {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 30%;
-  height: 100%;
-  border-radius: 10px;
-  font-weight: 700;
-  background: linear-gradient(180deg, #557888, #322f36 75%, #3c3538 85%, #4c403c);
-}
-.box5 #dataStatistics .dataItem .title {
-  color: #dec39e;
-  font-size: 22px;
-  margin-bottom: 25px;
-}
-.box5 #dataStatistics .dataItem .val {
-  color: #f6ad51;
-  font-size: 24px;
+.box5 .content {
+  height: 180px;
 }
 .box6 {
-  top: calc(140px + 268px + 88px + 178px);
+  position: absolute;
+  top: calc(140px + 174px);
+  left: 0;
 }
-.box6 #concentration {
+.box6 #species {
   display: flex;
-  margin: 0 85px;
-  height: 140px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  height: 220px;
+  padding: 5px 10px 10px;
+  box-sizing: border-box;
 }
-.box6 #concentration .left {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-size: 13px;
+.box6 #species .specItem {
+  position: relative;
+  width: 29%;
+  height: 86px;
+  margin: 10px 10px 0 0;
+  border: 1px solid blue;
 }
-.box6 #concentration .left .val {
-  color: #60f2f3;
+.box6 #species .specItem .title {
+  font-size: 14px;
+  margin: 6px;
 }
-.box6 #concentration .left .obligor,
-.box6 #concentration .left .creditor {
-  padding: 10px;
-  background: #132c44;
+.box6 #species .specItem .circle {
+  position: absolute;
+  right: 22px;
+  bottom: 10px;
+  width: 48px;
+  height: 48px;
+  line-height: 37px;
+  text-align: center;
+  border-radius: 50%;
+  border: 3px solid blue;
 }
-.box6 #concentration .left .obligor {
-  margin-bottom: 10px;
+.box6 #species .specItem .circle .value {
+  font-size: 12px;
 }
-.box6 #concentration #echarts {
-  flex: 3;
-  height: 100%;
+.box6 #species .specItem .circle .unit {
+  position: absolute;
+  right: 4px;
+  bottom: -3px;
+  font-size: 10px;
 }
 .box7 {
-  top: calc(140px + 268px + 102px + 178px + 178px);
+  position: absolute;
+  top: 122px;
+  left: 0;
 }
-.box7 #score {
-  height: 140px;
+.box7 .title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #fff;
+}
+.box7 .content {
+  display: flex;
+  justify-content: space-between;
+  height: 122px;
+}
+.box7 .content .amountItem {
+  position: relative;
+  width: 47%;
+  height: 100%;
+}
+.box7 .content .amountItem .msg {
+  margin: 26px 0 14px 30%;
+  position: relative;
+  height: 80px;
+  z-index: 5;
+  color: #eaeaea;
+}
+.box7 .content .amountItem .msg .label {
+  font-size: 18px;
+  font-weight: 700;
+}
+.box7 .content .amountItem .msg .value {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+.box7 .content .amountItem .msg .value span {
+  font-size: 22px;
+  margin-right: 10px;
+  color: #ffcc00;
+}
+#map {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+}
+.time {
+  position: relative;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 55px 0;
+  color: #c3cbd9;
+  text-align: center;
+  z-index: 8;
+}
+.time span {
+  margin: 0 20px;
+}
+.map {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
 }
