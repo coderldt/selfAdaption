@@ -517,6 +517,27 @@ new Vue({
         series: [
           {
             type: 'bar',
+            barWidth: 20,
+            label: {
+              show: true,
+              position: 'right'
+            },
+            itemStyle: {
+              borderRadius: [0, 50, 50, 0],
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 1,
+                y2: 1,
+                colorStops: [{
+                    offset: 0, color: '#40372b' // 0% 处的颜色
+                }, {
+                    offset: 1, color: '#f1c103' // 100% 处的颜色
+                }],
+                global: false // 缺省为 false
+              },
+            },
             data: xList
           }
         ]
@@ -583,6 +604,27 @@ new Vue({
         series: [
           {
             type: 'bar',
+            label: {
+              show: true,
+              position: 'right'
+            },
+            barWidth: 20,
+            itemStyle: {
+              borderRadius: [0, 50, 50, 0],
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 1,
+                y2: 1,
+                colorStops: [{
+                    offset: 0, color: '#ffffff' // 0% 处的颜色
+                }, {
+                    offset: 1, color: '#ffccff' // 100% 处的颜色
+                }],
+                global: false // 缺省为 false
+              },
+            },
             data: xList
           }
         ]
@@ -652,6 +694,27 @@ new Vue({
         series: [
           {
             type: 'bar',
+            label: {
+              show: true,
+              position: 'right'
+            },
+            barWidth: 20,
+            itemStyle: {
+              borderRadius: [0, 50, 50, 0],
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 1,
+                y2: 1,
+                colorStops: [{
+                    offset: 0, color: '#0199ff' // 0% 处的颜色
+                }, {
+                    offset: 1, color: '#99ccff' // 100% 处的颜色
+                }],
+                global: false // 缺省为 false
+              },
+            },
             data: xList
           }
         ]
