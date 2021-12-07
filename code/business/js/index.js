@@ -1,5 +1,6 @@
 const distributionSort = ['正向保理', '反向保理', '到货保理', '星券', 'ABS/ABN']
 const distributionColorSort = ['#ccffab', '#3d3dff', '#ffb252', '#008000', '#66ffff']
+const tableHeadSort = ['平台', '待融资', '累计发放', '在保'] 
 const router = new VueRouter()
 new Vue({
   el: '#app',
@@ -91,12 +92,15 @@ new Vue({
       const res = await getAssetTot()
       if (res && res.code == 200) {
         const head = ['统计项']
-        const total = ['累计笔数']
-        const money = ['累计金额']
-        res.data.forEach(item => {
-          head.push(item.typeName)
-          total.push(item.assetNum)
-          money.push(item.assetAmt)
+        const total = ['累计笔数(笔)']
+        const money = ['累计金额(万元)']
+        tableHeadSort.forEach(i => {
+          const obj = res.data.find(item => item.typeName.includes(i))
+          if (obj) {
+            head.push(obj.typeName)
+            total.push(obj.assetNum)
+            money.push(obj.assetAmt)
+          }
         })
         this.assetStatistics.heads = head
         this.assetStatistics.total = total
