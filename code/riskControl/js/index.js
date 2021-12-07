@@ -1,3 +1,6 @@
+const riskWarningLegendSort = ['高风险信息', '低风险信号', '警示信息', '提示信息']
+const riskWarningLegendColor = ['#9ebac8', '#c8403c', '#edc400', '#62ac1e']
+
 const router = new VueRouter()
 new Vue({
   el: '#app',
@@ -177,8 +180,13 @@ new Vue({
       const res = await getRiskWarnSignalDstr({ intervalDay })
       if (res.code == 200) {
         const data = []
-        res.data.forEach(item => {
-          data.push({ value: item.value, name: item.name })
+        const legend = []
+        riskWarningLegendSort.forEach((i, index) => {
+          const obj = res.data.find(item => item.name === i)
+          if (obj) {
+            data.push({ value: obj.value, name: obj.name, itemStyle: { color: riskWarningLegendColor[index] } })
+            legend.push({ name: obj.name, itemStyle: { color: riskWarningLegendColor[index] }, textStyle: {color: riskWarningLegendColor[index]} })
+          }
         })
 
         const option = {
@@ -191,9 +199,7 @@ new Vue({
             right: '5%',
             top: 'middle',
             orient: 'vertical',
-            textStyle: {
-              color: "#fff"
-            }
+            data: legend
           },
           series: [
             {
@@ -201,7 +207,10 @@ new Vue({
               radius: ['40%', '60%'],
               center: ['40%', '50%'],
               // roseType: 'area',
-              data
+              data,
+              label: {
+                formatter: '{b}: {d}%'
+              }
             }
           ]
         };
