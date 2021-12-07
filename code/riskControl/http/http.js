@@ -1,5 +1,5 @@
-const httpPrefix = 'http://localhost:3000/dataService'
-// let httpPrefix = '/api/dataService'
+// const httpPrefix = 'http://localhost:3000/dataService'
+let httpPrefix = '/api/dataService'
 
 // 项目风险事件次数
 function getProjRiskEventCnt(data) {
