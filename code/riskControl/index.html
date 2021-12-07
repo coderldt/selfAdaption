@@ -40,6 +40,7 @@
         <div class="decorate"></div>
       </div>
       <div class="content" id="businessTransactions" style="width: 100%; height: 230px"></div>
+      <div class="businessTransactionsTitle">{{ businessTransactionsTitle }}</div>
       <el-select class="select" size="mini" v-model="businessTransactionsValue" @change="getBusinessTransactions"
         placeholder="请选择">
         <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">

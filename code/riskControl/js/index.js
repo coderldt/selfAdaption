@@ -1,6 +1,8 @@
 const riskWarningLegendSort = ['高风险信息', '低风险信号', '警示信息', '提示信息']
 const riskWarningLegendColor = ['#9ebac8', '#c8403c', '#edc400', '#62ac1e']
 
+const businessTransactionsColor = ['#8adae7', '#ffb353', '#f0d2ab', '#f15a66', '#78584a', '#7686ff', '#d099f9', '#3dc458', '#418be2']
+
 const router = new VueRouter()
 new Vue({
   el: '#app',
@@ -50,6 +52,7 @@ new Vue({
     },
     dateList,
     concentrationList,
+    businessTransactionsTitle: '',
     businessTransactionsValue: defaultValue,
     riskWarningValue: defaultValue,
     accessDataValue: defaultValue,
@@ -133,23 +136,31 @@ new Vue({
         res.data.forEach(item => {
           data.push({ value: item.value, name: item.name })
         })
+
+        this.businessTransactionsTitle = "项目风险事件次数"
         const option = {
+          color: businessTransactionsColor,
           tooltip: {
             trigger: 'item'
           },
-          title: {
-            text: '项目风险时间次数',
-            left: 'center',
-            top: 20,
-            textStyle: {
-              color: '#fff'
-            }
-          },
+          // title: {
+          //   text: '项目风险时间次数',
+          //   left: 'center',
+          //   top: 20,
+          //   textStyle: {
+          //     color: '#fff'
+          //   }
+          // },
           legend: {
             type: 'scroll',
             right: '5%',
             top: 'middle',
             orient: 'vertical',
+            // formatter: function(val) {
+            //   console.log(val);
+            //   return 1
+            // },
+
             textStyle: {
               color: "#fff"
             }
