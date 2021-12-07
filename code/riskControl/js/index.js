@@ -1,4 +1,4 @@
-const riskWarningLegendSort = ['高风险信息', '低风险信号', '警示信息', '提示信息']
+const riskWarningLegendSort = ['低风险信号', '高风险信号', '中风险信号', '提示信息']
 const riskWarningLegendColor = ['#9ebac8', '#c8403c', '#edc400', '#62ac1e']
 
 const businessTransactionsColor = ['#8adae7', '#ffb353', '#f0d2ab', '#f15a66', '#78584a', '#7686ff', '#d099f9', '#3dc458', '#418be2']
