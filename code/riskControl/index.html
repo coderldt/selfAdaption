@@ -58,8 +58,15 @@
           <div class="commonBottomLine"></div>
         </div>
         <div class="count">
-          <count-to ref='example1' class='example1 countItem' v-for="(item, index) in formatCount" :key="index"
-            :start-val='0' :end-val='item' :useEasing="false" :duration=2000></count-to>
+          <div class="countItem" v-for="(item, index) in formatCount" :key="index">
+            <div class="leftBgcBorder"></div>
+            <div class="leftBgc"></div>
+            <div class="rightBgcBorder"></div>
+            <div class="rightBgc"></div>
+            <div class="border"></div>
+            <count-to ref='example1' class='example1 ' :start-val='0' :end-val='item' :useEasing="false" :duration=2000>
+            </count-to>
+          </div>
         </div>
       </div>
       <div class="gradual"></div>
