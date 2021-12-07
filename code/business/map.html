@@ -12,7 +12,7 @@
       height: 100vh;
     }
 
-    .popup td{
+    .popup td {
       position: relative;
       border: 1px solid #eaeaea;
       padding: 13px;
@@ -51,6 +51,7 @@
       maxZoom: 5.5,
     });
 
+    let popup = null
     map.on('load', () => {
       getAssetDstr().then(res => {
         if (res.code == 200) {
@@ -88,7 +89,10 @@
             }
           })
 
-          map.on('click', 'provinceFill', function (e) {
+          map.on('mousemove', 'provinceFill', function (e) {
+            if (popup) {
+              popup.remove()
+            }
             const { assetNum, assetAmt, createTime, name } = e.features[0].properties
             const table = `
               <table class="popup">
@@ -110,7 +114,7 @@
                 </tr>  
               </table>
             `
-            new mapboxgl.Popup()
+            popup = new mapboxgl.Popup()
               .setLngLat(e.lngLat)
               .setHTML(table)
               .addTo(map);
@@ -121,6 +125,9 @@
 
           map.on('mouseleave', 'provinceFill', function () {
             map.getCanvas().style.cursor = '';
+            if (popup) {
+              popup.remove()
+            }
           });
         }
       })

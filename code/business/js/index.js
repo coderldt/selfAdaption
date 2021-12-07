@@ -1,3 +1,5 @@
+const distributionSort = ['正向保理', '反向保理', '到货保理', '星券', 'ABS/ABN']
+const distributionColorSort = ['#ccffab', '#3d3dff', '#ffb252', '#008000', '#66ffff']
 const router = new VueRouter()
 new Vue({
   el: '#app',
@@ -22,6 +24,11 @@ new Vue({
     totalFactoring: 0,
     totalABN: 0,
     map: null,
+    hourId: null,
+    dateList,
+    changeTrendValue: defaultValue,
+    businessDistributionValue: defaultValue,
+    rateWarningValue: defaultValue,
   },
   created() {
     const loading = this.$loading({
@@ -52,7 +59,9 @@ new Vue({
   mounted() {
     this.time.day = dayjs().format('YYYY年MM月DD日')
     this.time.week = `星期${['一', '二', '三', '四', '五', '六', '日'][dayjs().get('day') - 1]}`
-    this.time.hour = dayjs().format('HH:mm:ss')
+    this.hourId = setInterval(()=>{
+      this.time.hour = dayjs().format('YYYY-MM-DD HH:mm:ss');
+    }, 1000);
     // this.mapInit()
     this.getAssetStatistics()
     this.getChangeTrend()
@@ -98,8 +107,8 @@ new Vue({
       // this.assetStatistics.money.push('累计金额', '5972', 4444, 6666, 5500)
     },
     // 业务发放金额变化趋势
-    async getChangeTrend() {
-      const res = await getBizAmt({ intervalDay: 0 })
+    async getChangeTrend(intervalDay = 0) {
+      const res = await getBizAmt({ intervalDay })
       const xAxisList = []
       const seriesList = []
       if (res && res.code == 200) {
@@ -107,13 +116,17 @@ new Vue({
           xAxisList.push(item.dataTime)
         })
 
-        res.data.forEach(item => {
-          seriesList.push({
-            name: item.name,
-            type: 'line',
-            stack: 'Total',
-            data: item.data.reverse().map(i => i.value)
-          })
+        distributionSort.forEach((key, index) => {
+          const obj = res.data.find(i => i.name === key)
+          if (obj) {
+            seriesList.push({
+              name: obj.name,
+              type: 'line',
+              stack: 'Total',
+              data: obj.data.reverse().map(i => i.value),
+              color: distributionColorSort[index]
+            })
+          } 
         })
       }
       const option = {
@@ -123,7 +136,8 @@ new Vue({
         legend: {
           textStyle: {
             color: '#fff'
-          }
+          },
+          right: 0
         },
         grid: {
           left: '3%',
@@ -137,17 +151,17 @@ new Vue({
           boundaryGap: false,
           data: xAxisList.reverse(),
           axisLabel: {
-            color: '#7a9bc3'
+            color: '#fff'
           },
         },
         yAxis: {
           type: 'value',
           name: '单位（元）',
           nameTextStyle: {
-            color: '#7a9bc3'
+            color: '#fff'
           },
           axisLabel: {
-            color: '#7a9bc3'
+            color: '#fff'
           },
           minorSplitLine: {
             lineStyle: {
@@ -163,8 +177,8 @@ new Vue({
       myChart.setOption(option);
     },
     // 不良率预警
-    async getRateWarning() {
-      const res = await getBadRto({ intervalDay: 0 })
+    async getRateWarning(intervalDay = 0) {
+      const res = await getBadRto({ intervalDay })
       const xAxisList = []
       const seriesList = []
       if (res.code == 200) {
@@ -172,15 +186,18 @@ new Vue({
           xAxisList.push(item.dataTime)
         })
 
-        res.data.forEach(item => {
-          seriesList.push({
-            name: item.name,
-            type: 'line',
-            stack: 'Total',
-            data: item.data.reverse().map(i => i.value)
-          })
+        distributionSort.forEach((key, index) => {
+          const obj = res.data.find(i => i.name === key)
+          if (obj) {
+            seriesList.push({
+              name: obj.name,
+              type: 'bar',
+              data: obj.data.reverse().map(i => i.value),
+              barWidth: 20,
+              color: distributionColorSort[index]
+            })
+          } 
         })
-
       }
       const option = {
         tooltip: {
@@ -200,20 +217,19 @@ new Vue({
         },
         xAxis: {
           type: 'category',
-          boundaryGap: false,
           data: xAxisList.reverse(),
           axisLabel: {
-            color: '#7a9bc3'
+            color: '#fff'
           },
         },
         yAxis: {
           type: 'value',
           name: '单位（%）',
           nameTextStyle: {
-            color: '#7a9bc3'
+            color: '#fff'
           },
           axisLabel: {
-            color: '#7a9bc3'
+            color: '#fff'
           },
           minorSplitLine: {
             lineStyle: {
@@ -229,8 +245,8 @@ new Vue({
       myChart.setOption(option);
     },
     // 业务发放笔变化趋势
-    async getBusinessDistribution() {
-      const res = await getBizCnt({ intervalDay: 0 })
+    async getBusinessDistribution(intervalDay = 0) {
+      const res = await getBizCnt({ intervalDay })
       const xAxisList = []
       const seriesList = []
       if (res.code == 200) {
@@ -238,15 +254,18 @@ new Vue({
           xAxisList.push(item.dataTime)
         })
 
-        res.data.forEach(item => {
-          seriesList.push({
-            name: item.name,
-            type: 'line',
-            stack: 'Total',
-            data: item.data.reverse().map(i => i.value)
-          })
+        distributionSort.forEach((key, index) => {
+          const obj = res.data.find(i => i.name === key)
+          if (obj) {
+            seriesList.push({
+              name: obj.name,
+              type: 'line',
+              stack: 'Total',
+              data: obj.data.reverse().map(i => i.value),
+              color: distributionColorSort[index]
+            })
+          } 
         })
-
       }
       const option = {
         tooltip: {
@@ -255,7 +274,8 @@ new Vue({
         legend: {
           textStyle: {
             color: '#fff'
-          }
+          },
+          right: 0
         },
         grid: {
           left: '3%',
@@ -269,17 +289,17 @@ new Vue({
           boundaryGap: false,
           data: xAxisList.reverse(),
           axisLabel: {
-            color: '#7a9bc3'
+            color: '#fff'
           },
         },
         yAxis: {
           type: 'value',
           name: '单位（万元）',
           nameTextStyle: {
-            color: '#7a9bc3'
+            color: '#fff'
           },
           axisLabel: {
-            color: '#7a9bc3'
+            color: '#fff'
           },
           minorSplitLine: {
             lineStyle: {
@@ -302,8 +322,8 @@ new Vue({
       this.totalABN = '0元'
       if (res && res.code == 200) {
         const data = res.data
-        this.totalFactoring = data.factTotAmt.value
-        this.totalABN = data.absTotAmt.value
+        this.totalFactoring = Number.parseFloat(data.factTotAmt.value)
+        this.totalABN = Number.parseFloat(data.absTotAmt.value)
         this.speciesList = [
           { title: data.factAmt.name, value: Number.parseFloat(data.factAmt.value), unit: '万元' }, // 正向保障
           { title: data.revFactAmt.name, value: Number.parseFloat(data.revFactAmt.value), unit: '万元' }, // 反向保障
@@ -324,5 +344,9 @@ new Vue({
       }
     }
   },
-
+  beforeDestroy() {
+    if (this.hourId) {
+      clearInterval(this.hourId)
+    }
+  }
 })

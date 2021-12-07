@@ -321,3 +321,24 @@
   left: auto;
   transform: rotate(180deg);
 }
+.el-select {
+  width: 100px;
+}
+.el-input input {
+  background: #283d58;
+  color: #fff;
+}
+.el-select-dropdown__list {
+  background: #283d58;
+}
+.el-select-dropdown__item {
+  color: #fff !important;
+}
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover,
+.el-select-dropdown__item.selected {
+  background: #4c678a !important;
+}
+.el-select-dropdown__item.selected {
+  color: #409eff !important;
+}

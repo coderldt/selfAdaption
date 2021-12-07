@@ -26,7 +26,7 @@
       <div class="line4"></div>
       <div class="line4 line5"></div>
     </div>
-    
+
     <div class="time">{{ time.day }} <span>{{ time.week }}</span> {{ time.hour }}</div>
     <!-- 地图 -->
     <iframe class="map" src="./map.html" frameborder="0"></iframe>
@@ -69,6 +69,10 @@
       </div>
       <div class="content" id="changeTrend">
       </div>
+      <el-select class="select" size="mini" v-model="changeTrendValue" @change="getChangeTrend" placeholder="请选择">
+        <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
     </div>
 
     <!-- 不良率预警 rateWarning -->
@@ -83,6 +87,10 @@
       </div>
       <div class="content" id="rateWarning">
       </div>
+      <el-select class="select" size="mini" v-model="rateWarningValue" @change="getRateWarning" placeholder="请选择">
+        <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
     </div>
 
     <!-- 业务发放笔变化趋势 businessDistribution -->
@@ -97,6 +105,11 @@
       </div>
       <div class="content" id="businessDistribution">
       </div>
+      <el-select class="select" size="mini" v-model="businessDistributionValue" @change="getBusinessDistribution"
+        placeholder="请选择">
+        <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
     </div>
 
     <!-- 分类统计 -->
@@ -105,7 +118,9 @@
         <div class="specItem" v-for="(item, index) in speciesList" :key="index" :style="getCurrentStyle(index)">
           <div class="title">{{ item.title }}</div>
           <div class="circle" :style="{ border: getCurrentStyle(index).border }">
-            <div class="value">{{ item.value }}</div>
+            <div class="value">
+              <count-to :start-val='0' :end-val="item.value"></count-to>
+            </div>
             <div class="unit">{{ item.unit }}</div>
           </div>
         </div>
@@ -125,7 +140,9 @@
           <div class="msg">
             <div class="label">保理总额</div>
             <div class="value">
-              <span>{{ totalFactoring }}</span>
+              <span>
+                <count-to :start-val='0' :end-val="totalFactoring"></count-to> 万元
+              </span>
             </div>
           </div>
         </div>
@@ -139,7 +156,9 @@
             <div class="msg">
               <div class="label">ABS、ABN总额</div>
               <div class="value">
-                <span>{{ totalABN }}</span>
+                <span>
+                  <count-to :start-val='0' :end-val="totalABN"></count-to> 万元
+                </span>
               </div>
             </div>
           </div>
@@ -155,6 +174,7 @@
   <script src="./js/countTo.js"></script>
   <script src="./http/index.js"></script>
   <script src="./http/http.js"></script>
+  <script src="./config/dataConfig.js"></script>
   <script src="./js/index.js"></script>
 </body>
 

@@ -39,8 +39,11 @@ body {
   text-align: center;
   padding: 10px;
 }
-.box2 .content table td {
-  border: 1px solid #eaeaea;
+.box2 .content table tr:first-child {
+  background: linear-gradient(180deg, #3399cc, #026839, #659833);
+}
+.box2 .content table tr:not(:first-child) {
+  background: linear-gradient(180deg, #131832, #189ad3, #131832);
 }
 .box3 {
   position: absolute;
@@ -49,6 +52,11 @@ body {
 }
 .box3 .content {
   height: 240px;
+}
+.box3 .select {
+  position: absolute;
+  right: 16px;
+  top: 65px;
 }
 .box4 {
   position: absolute;
@@ -64,6 +72,11 @@ body {
 .box4 .content {
   height: calc(100% - 33px);
 }
+.box4 .select {
+  position: absolute;
+  right: 72px;
+  top: 50px;
+}
 .box5 {
   position: absolute;
   top: calc(140px + 268px + 138px);
@@ -71,6 +84,11 @@ body {
 }
 .box5 .content {
   height: 180px;
+}
+.box5 .select {
+  position: absolute;
+  right: 16px;
+  top: 59px;
 }
 .box6 {
   position: absolute;

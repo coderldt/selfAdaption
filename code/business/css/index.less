@@ -44,8 +44,12 @@ body {
       color: #fff;
       text-align: center;
       padding: 10px;
-      td {
-        border: 1px solid #eaeaea;
+
+      tr:first-child { 
+        background: linear-gradient(180deg, #3399cc, #026839, #659833 );
+      }
+      tr:not(:first-child) {
+        background: linear-gradient(180deg, #131832, #189ad3, #131832 );
       }
     }
   }
@@ -59,6 +63,11 @@ body {
   .content {
     height: 240px;
   }
+  .select {
+    position: absolute;
+    right: 16px;
+    top: 65px;
+  } 
 }
 
 .box4 {
@@ -74,6 +83,11 @@ body {
   .content {
     height: calc(100% - 33px)
   }
+  .select {
+    position: absolute;
+    right: 72px;
+    top: 50px;
+  } 
 }
 
 .box5 {
@@ -84,6 +98,11 @@ body {
   .content {
     height: 180px
   }
+  .select {
+    position: absolute;
+    right: 16px;
+    top: 59px;
+  } 
 }
 
 .box6 {

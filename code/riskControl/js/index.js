@@ -600,7 +600,7 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '3%',
+          left: '-10%',
           right: '4%',
           bottom: '3%',
           top: '28%',
@@ -623,9 +623,12 @@ new Vue({
           data: yList,
           axisLabel: {
             color: '#0783d9',
-            formatter: function (val) {
-              return val.replace(/(.{9})/g, '$1\n')
-            },
+            ellipsis: '...',
+            width: 125,
+            overflow: 'truncate'
+            // formatter: function (val) {
+            //   return val.replace(/(.{9})/g, '$1\n')
+            // },
           },
           axisLine: {
             lineStyle: {
