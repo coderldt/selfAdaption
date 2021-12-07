@@ -83,6 +83,14 @@ router.post('/monitor/getEntPass', async (req, res) => {
         {
           "dataTime": "2021-11-26",
           "value": 200
+        },
+        {
+          "dataTime": "2021-11-25",
+          "value": 100
+        },
+        {
+          "dataTime": "2021-11-24",
+          "value": 500
         }
       ],
       "name": "企业准入数量统计"
@@ -100,18 +108,90 @@ router.post('/monitor/getScrtGate', async (req, res) => {
       {
         "data": [
           {
+            "dataTime": "2021-11-30",
+            "value": 300
+          },
+          {
+            "dataTime": "2021-11-29",
+            "value": 100
+          },
+          {
             "dataTime": "2021-11-27",
             "value": 500
           },
           {
             "dataTime": "2021-11-26",
             "value": 30
+          },
+          {
+            "dataTime": "2021-11-30",
+            "value": 300
+          },
+          {
+            "dataTime": "2021-11-29",
+            "value": 100
+          },
+          {
+            "dataTime": "2021-11-27",
+            "value": 500
+          },
+          {
+            "dataTime": "2021-11-26",
+            "value": 30
+          },
+          {
+            "dataTime": "2021-11-29",
+            "value": 600
+          },
+          {
+            "dataTime": "2021-11-27",
+            "value": 365.26
+          },
+          {
+            "dataTime": "2021-11-26",
+            "value": 55
           }
         ],
         "name": "已过安检门数量"
       },
       {
         "data": [
+          {
+            "dataTime": "2021-11-30",
+            "value": 100
+          },
+          {
+            "dataTime": "2021-11-29",
+            "value": 600
+          },
+          {
+            "dataTime": "2021-11-27",
+            "value": 365.26
+          },
+          {
+            "dataTime": "2021-11-26",
+            "value": 55
+          },
+          {
+            "dataTime": "2021-11-30",
+            "value": 100
+          },
+          {
+            "dataTime": "2021-11-29",
+            "value": 600
+          },
+          {
+            "dataTime": "2021-11-27",
+            "value": 365.26
+          },
+          {
+            "dataTime": "2021-11-26",
+            "value": 55
+          },
+          {
+            "dataTime": "2021-11-29",
+            "value": 600
+          },
           {
             "dataTime": "2021-11-27",
             "value": 365.26
@@ -142,6 +222,14 @@ router.post('/monitor/getEntDueDili', async (req, res) => {
         {
           "dataTime": "2021-11-26",
           "value": 50
+        },
+        {
+          "dataTime": "2021-11-25",
+          "value": 20
+        },
+        {
+          "dataTime": "2021-11-24",
+          "value": 300
         }
       ],
       "name": "尽调企业数量"

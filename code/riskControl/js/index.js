@@ -276,8 +276,9 @@ new Vue({
         series: {
           yAxisIndex: 0,
           type: 'line',
-          stack: 'Total',
-          data: seriesList
+          smooth: true,
+          data: seriesList,
+          color: "#48cc9d"
         },
       };
 
@@ -295,25 +296,36 @@ new Vue({
         const safetyCheckObj = res.data.find(i => i.name === '已过安检门数量')
         if (safetyCheckObj && safetyCheckObj.data && safetyCheckObj.data.length) {
           this.safetyCheckCount = safetyCheckObj.data[0].value
+
+          seriesList.push({
+            name: safetyCheckObj.name,
+            yAxisIndex: 0,
+            type: 'bar',
+            barWidth: 20,
+            color: '#269e70',
+            label: {
+              show: true
+            },
+            data: safetyCheckObj.data.reverse().map(i => i.value)
+          })
         }
 
         const safetyCheckMoneyObj = res.data.find(i => i.name === '已过安检门金额')
         if (safetyCheckMoneyObj && safetyCheckMoneyObj.data && safetyCheckMoneyObj.data.length) {
           this.safetyCheckMoney = safetyCheckMoneyObj.data[0].value
+
+          seriesList.push({
+            name: safetyCheckMoneyObj.name,
+            yAxisIndex: 1,
+            type: 'line',
+            smooth: true,
+            color: "#48cc9d",
+            data: safetyCheckMoneyObj.data.reverse().map(i => i.value)
+          })
         }
 
         res.data[0].data.forEach(item => {
           xAxisList.push(item.dataTime)
-        })
-
-        res.data.forEach((item, index) => {
-          seriesList.push({
-            name: item.name,
-            yAxisIndex: index,
-            type: 'line',
-            stack: 'Total',
-            data: item.data.reverse().map(i => i.value)
-          })
         })
       }
       const option = {
@@ -337,7 +349,7 @@ new Vue({
         },
         xAxis: {
           type: 'category',
-          boundaryGap: false,
+          // boundaryGap: false,
           data: xAxisList.reverse(),
           axisLabel: {
             color: '#7a9bc3'
@@ -362,7 +374,6 @@ new Vue({
           },
           {
             type: 'value',
-            inverse: true
           }
         ],
         series: seriesList
@@ -440,7 +451,9 @@ new Vue({
             name: res.data.name,
             type: 'line',
             stack: 'Total',
-            data: seriesList
+            smooth: true,
+            data: seriesList,
+            color: "#e98e07"
           }
         ]
       };
