@@ -19,6 +19,7 @@ new Vue({
       week: '',
       hour: ''
     },
+    hourId: '',
     count: 1180,
     // 进入数据企业数量
     accessDataCount: 0,
@@ -108,6 +109,9 @@ new Vue({
     this.time.day = dayjs().format('YYYY年MM月DD日')
     this.time.week = `星期${['一', '二', '三', '四', '五', '六', '日'][dayjs().get('day') - 1]}`
     this.time.hour = dayjs().format('HH:mm:ss')
+    this.hourId = setInterval(()=>{
+      this.time.hour = dayjs().format('YYYY-MM-DD HH:mm:ss');
+    }, 1000);
     this.getBusinessTransactions()
     this.getRiskWarning()
     this.getAccessData()
@@ -906,4 +910,9 @@ new Vue({
       }
     }
   },
+  beforeDestroy() {
+    if (this.hourId) {
+      clearInterval(this.hourId)
+    }
+  }
 })
