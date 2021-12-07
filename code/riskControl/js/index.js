@@ -133,8 +133,10 @@ new Vue({
       const res = await getProjRiskEventCnt({ intervalDay })
       if (res.code == 200) {
         const data = []
+        const legend = []
         res.data.forEach(item => {
           data.push({ value: item.value, name: item.name })
+          legend.push({ name: item.name, textStyle: { color: "#d8c09f" } })
         })
 
         this.businessTransactionsTitle = "项目风险事件次数"
@@ -143,27 +145,12 @@ new Vue({
           tooltip: {
             trigger: 'item'
           },
-          // title: {
-          //   text: '项目风险时间次数',
-          //   left: 'center',
-          //   top: 20,
-          //   textStyle: {
-          //     color: '#fff'
-          //   }
-          // },
           legend: {
             type: 'scroll',
             right: '5%',
             top: 'middle',
             orient: 'vertical',
-            // formatter: function(val) {
-            //   console.log(val);
-            //   return 1
-            // },
-
-            textStyle: {
-              color: "#fff"
-            }
+            data: legend
           },
           series: [
             {
