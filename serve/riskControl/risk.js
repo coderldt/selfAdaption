@@ -256,23 +256,23 @@ router.post('/monitor/getRiskCreditorConc', async (req, res) => {
           },
           {
             "dataTime": "2021-10",
-            "value": 0
+            "value": 200
           },
           {
             "dataTime": "2021-09",
-            "value": 0
+            "value": 100
           },
           {
             "dataTime": "2021-08",
-            "value": 0
+            "value": 300
           },
           {
             "dataTime": "2021-07",
-            "value": 0
+            "value": 100
           },
           {
             "dataTime": "2021-06",
-            "value": 0
+            "value": 250
           }
         ],
         "name": "债务人"
@@ -281,27 +281,27 @@ router.post('/monitor/getRiskCreditorConc', async (req, res) => {
         "data": [
           {
             "dataTime": "2021-12",
-            "value": 3
+            "value": 500
           },
           {
             "dataTime": "2021-11",
-            "value": 4.65
+            "value": 600
           },
           {
             "dataTime": "2021-10",
-            "value": 0
+            "value": 400
           },
           {
             "dataTime": "2021-09",
-            "value": 0
+            "value": 600
           },
           {
             "dataTime": "2021-08",
-            "value": 0
+            "value": 500
           },
           {
             "dataTime": "2021-07",
-            "value": 0
+            "value": 100
           },
           {
             "dataTime": "2021-06",

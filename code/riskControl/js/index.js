@@ -681,11 +681,55 @@ new Vue({
         const obligorDetail = res.data.find(i => i.name == '债务人')
         if (obligorDetail && obligorDetail.data && obligorDetail.data.length) {
           this.concentration.obligorCount = res.data.find(i => i.name == '债务人').data[0].value
+
+          seriesList.push({
+            name: obligorDetail.name,
+            type: 'line',
+            smooth: true,
+            // showSymbol: false,
+            color: '#ffcc00',
+            data: obligorDetail.data.reverse().map(i => i.value),
+            areaStyle: {
+              opacity: 0.8,
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: '#ffcc00'
+                },
+                {
+                  offset: 1,
+                  color: '#46cc00'
+                }
+              ])
+            },
+          })
         }
         
         const creditorDetail = res.data.find(i => i.name == '债权人')
         if (creditorDetail && creditorDetail.data && creditorDetail.data.length) {
           this.concentration.creditorCount = res.data.find(i => i.name == '债权人').data[0].value
+
+          seriesList.push({
+            name: creditorDetail.name,
+            type: 'line',
+            smooth: true,
+            // showSymbol: false,
+            color: "#63f5f6",
+            data: creditorDetail.data.reverse().map(i => i.value),
+            areaStyle: {
+              opacity: 0.8,
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: '#60e8ea'
+                },
+                {
+                  offset: 1,
+                  color: '#1d2e46'
+                }
+              ])
+            },
+          })
         }
 
         res.data.forEach(item => {
@@ -694,14 +738,6 @@ new Vue({
 
         res.data[0].data.forEach(item => {
           xAxisList.push(item.dataTime)
-        })
-
-        res.data.forEach(item => {
-          seriesList.push({
-            name: item.name,
-            type: 'bar',
-            data: item.data.reverse().map(i => i.value)
-          })
         })
       }
       const option = {
@@ -776,6 +812,11 @@ new Vue({
           {
             name: '主体评级分布',
             type: 'bar',
+            itemStyle: {
+              borderRadius: 50
+            },
+            barWidth: 20,
+            color: "#2aafea",
             data: seriesList
           }
         ]

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,8 +11,10 @@
   <link rel="stylesheet" href="./relyOn/element-ui.css">
   <script src="./relyOn/echarts.js"></script>
 </head>
+
 <body>
-  <div id="app" class="scale-box" :style="{ width, height, transform: `scale(${scale}) translate(-50%, 0)`, padding: '20px 0 0 0' }" >
+  <div id="app" class="scale-box"
+    :style="{ width, height, transform: `scale(${scale}) translate(-50%, 0)`, padding: '20px 0 0 0' }">
     <div class="commonTitle">
       供应链金融平台风险监控大屏
       <div class="line1"></div>
@@ -33,16 +36,13 @@
         <div class="sign"></div>
         <span>项目风险事件次数</span>
         <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
       </div>
       <div class="content" id="businessTransactions" style="width: 100%; height: 230px"></div>
-      <el-select class="select" size="mini" v-model="businessTransactionsValue" @change="getBusinessTransactions" placeholder="请选择">
-        <el-option
-          v-for="item in dateList"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
+      <el-select class="select" size="mini" v-model="businessTransactionsValue" @change="getBusinessTransactions"
+        placeholder="请选择">
+        <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
     </div>
@@ -57,7 +57,8 @@
           <div class="commonBottomLine"></div>
         </div>
         <div class="count">
-          <count-to ref='example1' class='example1 countItem' v-for="(item, index) in formatCount" :key="index" :start-val='0' :end-val='item' :useEasing="false" :duration=2000></count-to>
+          <count-to ref='example1' class='example1 countItem' v-for="(item, index) in formatCount" :key="index"
+            :start-val='0' :end-val='item' :useEasing="false" :duration=2000></count-to>
         </div>
       </div>
       <div class="gradual"></div>
@@ -70,40 +71,32 @@
         <div class="sign"></div>
         <span>风险预警信号分布</span>
         <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
       </div>
       <div class="content" id="riskWarning" style="width: 100%; height: 230px"></div>
       <el-select class="select" size="mini" v-model="riskWarningValue" @change="getRiskWarning" placeholder="请选择">
-        <el-option
-          v-for="item in dateList"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
+        <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
     </div>
 
     <!-- 准入数据 -->
-    <div class="box3 otherwidth commomNoBackBox" >
+    <div class="box3 otherwidth commomNoBackBox">
       <div class="title">
         <div class="sign"></div>
         <div class="sign"></div>
         <span>准入数据</span>
         <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
       </div>
       <div class="content">
         <div>
           <div id="accessData"></div>
           <span class="otherMsg">昨日准入企业数量：<span class="val">{{ accessDataCount }}</span></span>
           <el-select class="select" size="mini" v-model="accessDataValue" @change="getAccessData" placeholder="请选择">
-            <el-option
-              v-for="item in dateList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+            <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
@@ -112,11 +105,7 @@
           <span class="otherMsg count">昨日通过安检门数量：<span class="val ">{{ safetyCheckCount }}</span></span>
           <span class="otherMsg money">昨日通过安检门金额：<span class="val ">{{ safetyCheckMoney }}</span></span>
           <el-select class="select" size="mini" v-model="safetyCheckValue" @change="getSafetyCheck" placeholder="请选择">
-            <el-option
-              v-for="item in dateList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+            <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
@@ -124,11 +113,7 @@
           <div id="tuneOut"></div>
           <span class="otherMsg">昨日尽调企业数量：<span class="val">{{ tuneOutCount }}</span></span>
           <el-select class="select" size="mini" v-model="tuneOutValue" @change="getTuneOut" placeholder="请选择">
-            <el-option
-              v-for="item in dateList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+            <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
@@ -136,47 +121,37 @@
     </div>
 
     <!-- 规则分布 -->
-    <div class="box3 otherwidth box4 commomNoBackBox" >
+    <div class="box3 otherwidth box4 commomNoBackBox">
       <div class="title">
         <div class="sign"></div>
         <div class="sign"></div>
         <span>规则分布</span>
         <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
       </div>
       <div class="content">
         <!-- 多一层为了和准入数据保持结构 -->
         <div>
           <div id="antiFraudRule"></div>
           <el-select class="select" size="mini" v-model="antiFraudRuleValue" @change="getAntiFeaud" placeholder="请选择">
-            <el-option
-              v-for="item in dateList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+            <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
         <div>
           <div id="safetyCheckRule"></div>
-          <el-select class="select" size="mini" v-model="safetyCheckRuleValue" @change="getSafetyCheckRule" placeholder="请选择">
-            <el-option
-              v-for="item in dateList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+          <el-select class="select" size="mini" v-model="safetyCheckRuleValue" @change="getSafetyCheckRule"
+            placeholder="请选择">
+            <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
         <div>
           <div id="businessRiskRule"></div>
-          <el-select class="select" size="mini" v-model="businessRiskRuleValue" @change="getBusinessRiskRule" placeholder="请选择">
-            <el-option
-              v-for="item in dateList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+          <el-select class="select" size="mini" v-model="businessRiskRuleValue" @change="getBusinessRiskRule"
+            placeholder="请选择">
+            <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
@@ -184,40 +159,52 @@
     </div>
 
     <!-- 数据统计 -->
-    <div class="box5 centerWidth commomNoBackBox" >
+    <div class="box5 centerWidth commomNoBackBox">
       <div class="title">
         <div class="sign"></div>
         <div class="sign"></div>
         <span>数据统计</span>
         <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
       </div>
       <div class="content" id="dataStatistics">
         <div class="dataItem">
           <div class="title">{{ dataStatis.monCompNum.name }}</div>
-          <div class="val">{{ dataStatis.monCompNum.value }}</div>
+          <div class="val">
+            <count-to :start-val='0' :end-val='Number(parseFloat(dataStatis.monCompNum.value))' :useEasing="false"
+              :duration=2000>
+            </count-to>个
+          </div>
         </div>
         <div class="dataItem">
           <div class="title">{{ dataStatis.nonPerfAssetRto.name }}</div>
-          <div class="val">{{ dataStatis.nonPerfAssetRto.value }}</div>
+          <div class="val">
+            <count-to :start-val='0' :end-val='Number(parseFloat(dataStatis.nonPerfAssetRto.value))' :useEasing="false"
+              :duration=2000>
+            </count-to>%
+          </div>
         </div>
         <div class="dataItem">
           <div class="title">{{ dataStatis.connTransRate.name }}</div>
-          <div class="val">{{ dataStatis.connTransRate.value }}</div>
+          <div class="val">
+            {{Number(parseFloat(dataStatis.connTransRate.value))}}%
+            <!-- <count-to :start-val='0' :end-val='0.5' :useEasing="false" :duration=2000>
+            </count-to>% -->
+          </div>
         </div>
       </div>
     </div>
 
     <!-- 集中度 -->
-    <div class="box6 box5 centerWidth commomNoBackBox" >
+    <div class="box6 box5 centerWidth commomNoBackBox">
       <div class="title">
         <div class="sign"></div>
         <div class="sign"></div>
         <span>单一债权人集中度</span>
         <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
       </div>
       <div class="content" id="concentration">
         <div class="left">
@@ -233,34 +220,27 @@
           </div>
         </div>
         <div id="echarts"></div>
-        <el-select class="select" size="mini" v-model="concentrationValue" @change="getConcentrationEcharts" placeholder="请选择">
-          <el-option
-            v-for="item in concentrationList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
+        <el-select class="select" size="mini" v-model="concentrationValue" @change="getConcentrationEcharts"
+          placeholder="请选择">
+          <el-option v-for="item in concentrationList" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </div>
     </div>
 
     <!-- 评级分布 -->
-    <div class="box7 box5 centerWidth commomNoBackBox" >
+    <div class="box7 box5 centerWidth commomNoBackBox">
       <div class="title">
         <div class="sign"></div>
         <div class="sign"></div>
         <span>主体评级分布</span>
         <div class="half"></div>
-        <div class="line" ></div>
-        <div class="decorate" ></div>
+        <div class="line"></div>
+        <div class="decorate"></div>
       </div>
       <div class="content" id="score"></div>
       <el-select class="select" size="mini" v-model="scoreValue" @change="getScore" placeholder="请选择">
-        <el-option
-          v-for="item in dateList"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
+        <el-option v-for="item in dateList" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
     </div>
@@ -276,4 +256,5 @@
   <script src="./config/dateConfig.js"></script>
   <script src="./js/index.js"></script>
 </body>
+
 </html>
