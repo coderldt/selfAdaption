@@ -1,5 +1,5 @@
-// const httpPrefix = '/api/dataService'
-const httpPrefix = 'http://localhost:3000/dataService'
+const httpPrefix = '/api/dataService'
+// const httpPrefix = 'http://localhost:3000/dataService'
 // 三十天内到期
 function getMonDueBizAmt() {
   return ajax.post({ url: httpPrefix + '/cockpit/getMonDueBizAmt' })

@@ -160,7 +160,7 @@ new Vue({
         },
         yAxis: {
           type: 'value',
-          name: '单位（元）',
+          name: '单位（万元）',
           nameTextStyle: {
             color: '#fff'
           },
@@ -298,7 +298,7 @@ new Vue({
         },
         yAxis: {
           type: 'value',
-          name: '单位（万元）',
+          name: '单位（笔数）',
           nameTextStyle: {
             color: '#fff'
           },
