@@ -394,7 +394,7 @@ router.post('/monitor/getModelScrtGate', async (req, res) => {
     "data": {
       "data": [
         {
-          "name": "企业经营状态非正常",
+          "name": "企业经营状态非正常企业经营状态非正常",
           "value": 1
         }
       ],

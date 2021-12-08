@@ -14,14 +14,102 @@
 
     .popup td {
       position: relative;
-      border: 1px solid #eaeaea;
-      padding: 13px;
-      font-size: 17px;
-      z-index: 99999;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 40px;
+      padding: 0 12px 0 0;
+      box-sizing: border-box;
     }
+
+    .asd {
+      color: #fff;
+      z-index: 999;
+    }
+
+    .asd .mapboxgl-popup-content {
+      background-color: #fff0;
+
+    }
+
+    .asd .mapboxgl-popup-tip {
+      border: 0;
+      background-color: #fff0;
+    }
+
+    .asd .mapboxgl-popup-close-button {
+      display: none;
+    }
+
 
     body {
       overflow: hidden;
+    }
+
+    .bgc {
+      position: relative;
+      padding: 5px 20px;
+      text-align: center;
+      background-color: #063857;
+    }
+
+    .bgc .val {
+      color: #66ffff;
+    }
+
+    .commonTopLine {
+      position: relative;
+      border-top: 2px solid #21a0b1;
+      border-bottom: 2px solid #21a0b1;
+    }
+
+    .commonTopLine::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: -3px;
+      width: 8px;
+      height: 4px;
+      background-color: #51ccd3;
+    }
+
+    .commonTopLine::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: -3px;
+      right: 0;
+      width: 8px;
+      height: 4px;
+      background-color: #51ccd3;
+    }
+
+    .commonBottomLine {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    .commonBottomLine::before {
+      content: '';
+      position: absolute;
+      left: 0px;
+      bottom: -3px;
+      width: 8px;
+      height: 4px;
+      background-color: #51ccd3;
+    }
+
+    .commonBottomLine::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: -3px;
+      right: 0px;
+      width: 8px;
+      height: 4px;
+      background-color: #51ccd3;
     }
   </style>
 </head>
@@ -32,9 +120,30 @@
   <link rel="stylesheet" href="./relyOn/mapbox.css">
   <script src="./relyOn/axios.js"></script>
   <script src="./data/areas.js"></script>
+  <script src="./data/areasPoint.js"></script>
   <script src="./http/index.js"></script>
   <script src="./http/http.js"></script>
   <script>
+    const rangeColor = [
+      "step",
+      ["get", "assetAmt"],
+      "#1c80a3",
+      100000,
+      "#62f9fa",
+      200000,
+      "#11f37f",
+      500000,
+      "#fefe01",
+    ]
+
+    const rangeRadius = [
+      "step", ["get", "assetAmt"],
+      5,
+      100000, 10,
+      200000, 13,
+      500000, 18,
+    ]
+
     mapboxgl.accessToken = 'pk.eyJ1IjoiY29kZXJsdG1iIiwiYSI6ImNrbWViOGQ4aDJ1MW0ycWp4MmlyOWkybjUifQ.eoR2Cs1QgekzXeyX6PqcPw';
     const map = new mapboxgl.Map({
       container: 'map',
@@ -56,12 +165,24 @@
       getAssetDstr().then(res => {
         if (res.code == 200) {
           const data = res.data.filter(item => item.regionCode)
+          const areaPointFinalgeojson = {
+            features: [],
+            type: "FeatureCollection"
+          }
           data.forEach(item => {
-            areageojson.features.find(i => {
+            areaPointgeojson.features.find(i => {
               if (i.properties.adcode == `${item.regionCode}0000`) {
-                i.properties.assetAmt = item.assetAmt
-                i.properties.assetNum = item.assetNum
-                i.properties.createTime = item.createTime
+                const { properties, geometry } = i
+
+                const newPro = JSON.parse(JSON.stringify(i.properties))
+                newPro.assetAmt = Number(item.assetAmt)
+                newPro.assetNum = Number(item.assetNum)
+                newPro.createTime = item.createTime
+
+                areaPointFinalgeojson.features.push({
+                  properties: newPro,
+                  geometry: JSON.parse(JSON.stringify(geometry))
+                })
               }
             })
           })
@@ -89,41 +210,64 @@
             }
           })
 
-          map.on('mousemove', 'provinceFill', function (e) {
+          map.addSource('provincePoint', {
+            type: 'geojson',
+            data: areaPointFinalgeojson
+          })
+
+          map.addLayer({
+            source: 'provincePoint',
+            id: 'provincePoint',
+            type: "circle",
+            "paint": {
+              "circle-color": rangeColor,
+              "circle-radius": rangeRadius,
+              "circle-stroke-width": 0,
+              "circle-stroke-color": rangeColor,
+              "circle-stroke-opacity": .6,
+              "circle-opacity": .9
+            }
+          })
+
+          let maxRadius = 25
+          let currentRadius = 10
+          setInterval(() => {
+            if (currentRadius < maxRadius) {
+              map.setPaintProperty("provincePoint", "circle-stroke-width", 0 + currentRadius)
+              currentRadius += 5
+            } else {
+              currentRadius = 10
+              map.setPaintProperty("provincePoint", "circle-stroke-width", 0)
+            }
+          }, 200)
+
+          map.on('mousemove', 'provincePoint', function (e) {
             if (popup) {
               popup.remove()
             }
-            const { assetNum, assetAmt, createTime, name } = e.features[0].properties
-            const table = `
-              <table class="popup">
-                <tr>
-                  <td>地点</td>  
-                  <td>${name}</td>  
-                </tr>  
-                <tr>
-                  <td>资产笔数</td>  
-                  <td>${assetNum || '暂无数据'}</td>  
-                </tr>  
-                <tr>
-                  <td>资产金额</td>  
-                  <td>${assetAmt || '暂无数据'}</td>  
-                </tr>  
-                <tr>
-                  <td>创建时间</td>  
-                  <td>${createTime || '暂无数据'}</td>  
-                </tr>  
-              </table>
+            const { assetNum, assetAmt, createTime, name, center } = e.features[0].properties
+            const newPopup = `
+              <div class="bgc commonTopLine">
+                <div class="commonBottomLine"></div>
+                <div class="title">资产笔数</div>
+                <div class="val">${assetNum}</div>
+              </div>
+              <div class="bgc commonTopLine">
+                <div class="commonBottomLine"></div>
+                <div class="title">资产金额</div>
+                <div class="val">${assetAmt}</div>
+              </div>
             `
-            popup = new mapboxgl.Popup()
-              .setLngLat(e.lngLat)
-              .setHTML(table)
+            popup = new mapboxgl.Popup({ className: "asd", anchor: "right", offset: 10 })
+              .setLngLat(e.features[0].geometry.coordinates)
+              .setHTML(newPopup)
               .addTo(map);
           });
-          map.on('mouseenter', 'provinceFill', function () {
+          map.on('mouseenter', 'provincePoint', function () {
             map.getCanvas().style.cursor = 'pointer';
           });
 
-          map.on('mouseleave', 'provinceFill', function () {
+          map.on('mouseleave', 'provincePoint', function () {
             map.getCanvas().style.cursor = '';
             if (popup) {
               popup.remove()

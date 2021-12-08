@@ -328,18 +328,26 @@ router.post('/cockpit/getAssetDstr', (req, res) => {
     "data": [
       {
         "id": null,
-        "assetNum": 219,
-        "assetAmt": 2127122.17,
-        "regionCode": null,
-        "regionName": null,
+        "assetNum": 900,
+        "assetAmt": 1,
+        "regionCode": "15",
+        "regionName": "内蒙古自治区",
         "createTime": null
       },
       {
         "id": 1,
-        "assetNum": 325,
+        "assetNum": 3156122.15,
         "assetAmt": 3156122.15,
         "regionCode": "11",
         "regionName": "北京市",
+        "createTime": "2021-11-16"
+      },
+      {
+        "id": 1,
+        "assetNum": 100000.1,
+        "assetAmt": 100000.1,
+        "regionCode": "12",
+        "regionName": "天津市",
         "createTime": "2021-11-16"
       }
     ],
