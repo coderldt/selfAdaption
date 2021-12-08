@@ -135,6 +135,8 @@ new Vue({
     // 项目风险事件次数
     async getBusinessTransactions(intervalDay = 0) {
       const res = await getProjRiskEventCnt({ intervalDay })
+      this.businessTransactionsTitle = "项目风险事件次数"
+
       if (res.code == 200) {
         const data = []
         const legend = []
@@ -143,7 +145,6 @@ new Vue({
           legend.push({ name: item.name, textStyle: { color: "#d8c09f" } })
         })
 
-        this.businessTransactionsTitle = "项目风险事件次数"
         const option = {
           color: businessTransactionsColor,
           tooltip: {
@@ -494,11 +495,11 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '3%',
+          left: '30%',
           right: '4%',
           bottom: '3%',
           top: '28%',
-          containLabel: true
+          containLabel: false
         },
         xAxis: {
           type: 'value',
@@ -517,7 +518,14 @@ new Vue({
           boundaryGap: true,
           data: yList,
           axisLabel: {
-            color: '#f0d1a9'
+            color: '#f0d1a9',
+            ellipsis: '...',
+            width: 125,
+            overflow: 'truncate',
+            margin: 125,
+            textStyle: {
+              align: 'left',
+            }
           },
           axisLine: {
             lineStyle: {
@@ -581,16 +589,16 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '3%',
+          left: '30%',
           right: '4%',
           bottom: '3%',
           top: '28%',
-          containLabel: true
+          containLabel: false
         },
         xAxis: {
           type: 'value',
           axisLabel: {
-            color: '#f0d1a9'
+            color: '#f0d1a9',
           },
           axisLine: {
             lineStyle: {
@@ -604,7 +612,14 @@ new Vue({
           boundaryGap: true,
           data: yList,
           axisLabel: {
-            color: '#f0d1a9'
+            color: '#f0d1a9',
+            ellipsis: '...',
+            width: 125,
+            overflow: 'truncate',
+            margin: 125,
+            textStyle: {
+              align: 'left',
+            }
           },
           axisLine: {
             lineStyle: {
@@ -666,11 +681,11 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '-10%',
+          left: '30%',
           right: '4%',
           bottom: '3%',
           top: '28%',
-          containLabel: true
+          containLabel: false
         },
         xAxis: {
           type: 'value',
@@ -691,10 +706,11 @@ new Vue({
             color: '#0783d9',
             ellipsis: '...',
             width: 125,
-            overflow: 'truncate'
-            // formatter: function (val) {
-            //   return val.replace(/(.{9})/g, '$1\n')
-            // },
+            overflow: 'truncate',
+            margin: 125,
+            textStyle: {
+              align: 'left',
+            }
           },
           axisLine: {
             lineStyle: {
