@@ -78,7 +78,7 @@ router.post('/monitor/getEntPass', async (req, res) => {
       "data": [
         {
           "dataTime": "2021-11-27",
-          "value": 101
+          "value": 10100000
         },
         {
           "dataTime": "2021-11-26",
@@ -109,7 +109,7 @@ router.post('/monitor/getScrtGate', async (req, res) => {
         "data": [
           {
             "dataTime": "2021-11-30",
-            "value": 300
+            "value": 30000000
           },
           {
             "dataTime": "2021-11-29",
@@ -217,7 +217,7 @@ router.post('/monitor/getEntDueDili', async (req, res) => {
       "data": [
         {
           "dataTime": "2021-11-27",
-          "value": 261
+          "value": 261000000
         },
         {
           "dataTime": "2021-11-26",
@@ -324,7 +324,7 @@ router.post('/monitor/getMainGradeDstr', async (req, res) => {
       "data": [
         {
           "name": "C",
-          "value": 7
+          "value": 7000000000
         },
         {
           "name": "CC",

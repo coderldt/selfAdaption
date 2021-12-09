@@ -97,7 +97,7 @@ router.post('/cockpit/getBizAmt', (req, res) => {
           },
           {
             "dataTime": "2021-02-09",
-            "value": 0
+            "value": 10000000
           },
           {
             "dataTime": "2021-02-08",
@@ -172,7 +172,7 @@ router.post('/cockpit/getBizCnt', (req, res) => {
         "data": [
           {
             "dataTime": "2021-02-10",
-            "value": 0
+            "value": 100000000
           },
           {
             "dataTime": "2021-02-09",
@@ -268,7 +268,7 @@ router.post('/cockpit/getBadRto', (req, res) => {
         "data": [
           {
             "dataTime": "2021-02-10",
-            "value": 0
+            "value": 100000000
           },
           {
             "dataTime": "2021-02-09",
