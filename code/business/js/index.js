@@ -185,7 +185,7 @@ new Vue({
       };
 
       const myChart = echarts.init(document.getElementById('changeTrend'));
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     // 不良率预警
     async getRateWarning(intervalDay = 0) {
@@ -253,7 +253,7 @@ new Vue({
       };
 
       const myChart = echarts.init(document.getElementById('rateWarning'));
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     // 业务发放笔变化趋势
     async getBusinessDistribution(intervalDay = 0) {
@@ -323,7 +323,7 @@ new Vue({
       };
 
       const myChart = echarts.init(document.getElementById('businessDistribution'));
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     // 分类统计
     // 三十天内到期业务金额

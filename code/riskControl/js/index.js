@@ -174,7 +174,7 @@ new Vue({
           ]
         };
         const myChart = echarts.init(document.getElementById('businessTransactions'));
-        myChart.setOption(option);
+        myChart.setOption(option, true);
       }
     },
     // 风险预警信号分布
@@ -218,7 +218,7 @@ new Vue({
         };
 
         const myChart = echarts.init(document.getElementById('riskWarning'));
-        myChart.setOption(option);
+        myChart.setOption(option, true);
       }
     },
     // 准入数据 - 进入数据统计
@@ -291,7 +291,7 @@ new Vue({
       };
 
       const myChart = echarts.init(document.getElementById('accessData'));
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     // 准入数据 - 已过安检门数据
     async getSafetyCheck(intervalDay = 0) {
@@ -388,7 +388,7 @@ new Vue({
       };
 
       const myChart = echarts.init(document.getElementById('safetyCheck'));
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     // 准入数据 - 进尽调企业数量
     async getTuneOut(intervalDay = 0) {
@@ -464,7 +464,7 @@ new Vue({
       };
 
       const myChart = echarts.init(document.getElementById('tuneOut'));
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     // 规则分布 - 反欺诈命中规则分布
     async getAntiFeaud(intervalDay = 0) {
@@ -556,7 +556,7 @@ new Vue({
       };
 
       const myChart = echarts.init(document.getElementById('antiFraudRule'));
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     // 规则分布 - 安检门模型命中规则分布
     async getSafetyCheckRule(intervalDay = 0) {
@@ -648,7 +648,7 @@ new Vue({
       };
 
       const myChart = echarts.init(document.getElementById('safetyCheckRule'));
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     // 规则分布 - 业务风险识别模型明命中规则分布
     async getBusinessRiskRule(intervalDay = 0) {
@@ -739,7 +739,7 @@ new Vue({
       };
 
       const myChart = echarts.init(document.getElementById('businessRiskRule'));
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     // 数据统计
     async getDataStatistics() {
@@ -853,7 +853,7 @@ new Vue({
         series: seriesList
       };
       const myChart = echarts.init(document.getElementById('echarts'));
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     // 主体评级分布
     async getScore(intervalDay = 0) {
@@ -903,7 +903,7 @@ new Vue({
       };
 
       const myChart = echarts.init(document.getElementById('score'));
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     debounce(fun, delay) {
       return function (args) {
