@@ -20,7 +20,13 @@ new Vue({
       total: [],
       money: []
     },
-    speciesList: [],
+    speciesList: [
+      { title: '正向保理', value: 0, unit: '万元' },
+      { title: '反向保理', value: 0, unit: '万元' },
+      { title: '到货保理', value: 0, unit: '万元' },
+      { title: '星券', value: 0, unit: '万元' },
+      { title: 'ABS/ABN', value: 0, unit: '万元' },
+    ],
     speciesColor: ['#4657ec', '#07fcfb', '#ffb74a', '#f0d2ab', '#4ccf96'],
     totalFactoring: 0,
     totalABN: 0,
@@ -322,8 +328,8 @@ new Vue({
     // 三十天内到期业务金额
     async getMainMoney() {
       const res = await getMonDueBizAmt()
-      this.totalFactoring = '0元'
-      this.totalABN = '0元'
+      this.totalFactoring = 0
+      this.totalABN = 0
       if (res && res.code == 200) {
         const data = res.data
         this.totalFactoring = Number.parseFloat(data.factTotAmt.value)
