@@ -494,7 +494,7 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '30%',
+          left: (res && res.code == 200) ? '30%' :'10%',
           right: '4%',
           bottom: '3%',
           top: '28%',
@@ -588,7 +588,7 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '30%',
+          left: (res && res.code == 200) ? '30%' :'10%',
           right: '4%',
           bottom: '3%',
           top: '28%',
@@ -680,7 +680,7 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '30%',
+          left: (res && res.code == 200) ? '30%' :'10%',
           right: '4%',
           bottom: '3%',
           top: '28%',
