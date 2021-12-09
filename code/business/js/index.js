@@ -96,10 +96,10 @@ new Vue({
     // 资产数据统计
     async getAssetStatistics() {
       const res = await getAssetTot()
+      const head = ['统计项']
+      const total = ['累计笔数(笔)']
+      const money = ['累计金额(万元)']
       if (res && res.code == 200) {
-        const head = ['统计项']
-        const total = ['累计笔数(笔)']
-        const money = ['累计金额(万元)']
         tableHeadSort.forEach(i => {
           const obj = res.data.find(item => item.typeName.includes(i))
           if (obj) {
@@ -108,13 +108,14 @@ new Vue({
             money.push(obj.assetAmt)
           }
         })
-        this.assetStatistics.heads = head
-        this.assetStatistics.total = total
-        this.assetStatistics.money = money
+      } else {
+        head.push('平台资产', '待融资资产', '累计发放资产', '在保资产')
+        total.push(0,0,0,0)
+        money.push(0,0,0,0)
       }
-      // this.assetStatistics.heads.push('统计项', '带融资资产', '平台资产', '累计发放资产', '在保资产')
-      // this.assetStatistics.total.push('累计笔数', '555', 155, 255, 355)
-      // this.assetStatistics.money.push('累计金额', '5972', 4444, 6666, 5500)
+      this.assetStatistics.heads = head
+      this.assetStatistics.total = total
+      this.assetStatistics.money = money
     },
     // 业务发放金额变化趋势
     async getChangeTrend(intervalDay = 0) {

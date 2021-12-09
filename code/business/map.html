@@ -162,6 +162,28 @@
 
     let popup = null
     map.on('load', () => {
+      map.addSource('province', {
+        'type': 'geojson',
+        'data': areageojson
+      })
+
+      map.addLayer({
+        source: 'province',
+        id: 'provinceFill',
+        type: "fill",
+        "paint": {
+          "fill-color": "#005281",
+        }
+      })
+
+      map.addLayer({
+        source: 'province',
+        id: 'privinceLine',
+        type: "line",
+        "paint": {
+          "line-color": "#fff",
+        }
+      })
       getAssetDstr().then(res => {
         if (res.code == 200) {
           const data = res.data.filter(item => item.regionCode)
@@ -185,29 +207,6 @@
                 })
               }
             })
-          })
-
-          map.addSource('province', {
-            'type': 'geojson',
-            'data': areageojson
-          })
-
-          map.addLayer({
-            source: 'province',
-            id: 'provinceFill',
-            type: "fill",
-            "paint": {
-              "fill-color": "#005281",
-            }
-          })
-
-          map.addLayer({
-            source: 'province',
-            id: 'privinceLine',
-            type: "line",
-            "paint": {
-              "line-color": "#fff",
-            }
           })
 
           map.addSource('provincePoint', {
