@@ -161,7 +161,46 @@
     });
 
     let popup = null
-    map.on('load', () => {
+    map.on('load', async () => {
+      const res = await getAssetDstr()
+      const areaPointFinalgeojson = {
+        features: [],
+        type: "FeatureCollection"
+      }
+      const areaFinalgeojson = {
+        features: [],
+        type: "FeatureCollection"
+      }
+      if (res && res.code == 200) {
+        const data = res.data.filter(item => item.regionCode)
+        data.forEach(item => {
+          // 处理点数据的geojson
+          areaPointgeojson.features.find(i => {
+            if (i.properties.adcode == `${item.regionCode}0000`) {
+              const { properties, geometry } = i
+
+              const newPro = JSON.parse(JSON.stringify(i.properties))
+              newPro.assetAmt = Number(item.assetAmt)
+              newPro.assetNum = Number(item.assetNum)
+              newPro.createTime = item.createTime
+
+              areaPointFinalgeojson.features.push({
+                properties: newPro,
+                geometry: JSON.parse(JSON.stringify(geometry))
+              })
+            }
+          })
+          // 地图的geogson
+          areageojson.features.find(i => {
+            if (i.properties.adcode == `${item.regionCode}0000`) {
+              i.properties.assetAmt = Number(item.assetAmt)
+              i.properties.assetNum = Number(item.assetNum)
+            }
+          })
+        })
+      }
+
+      // 添加地图地线颜色
       map.addSource('province', {
         'type': 'geojson',
         'data': areageojson
@@ -184,96 +223,74 @@
           "line-color": "#fff",
         }
       })
-      getAssetDstr().then(res => {
-        if (res.code == 200) {
-          const data = res.data.filter(item => item.regionCode)
-          const areaPointFinalgeojson = {
-            features: [],
-            type: "FeatureCollection"
-          }
-          data.forEach(item => {
-            areaPointgeojson.features.find(i => {
-              if (i.properties.adcode == `${item.regionCode}0000`) {
-                const { properties, geometry } = i
 
-                const newPro = JSON.parse(JSON.stringify(i.properties))
-                newPro.assetAmt = Number(item.assetAmt)
-                newPro.assetNum = Number(item.assetNum)
-                newPro.createTime = item.createTime
-
-                areaPointFinalgeojson.features.push({
-                  properties: newPro,
-                  geometry: JSON.parse(JSON.stringify(geometry))
-                })
-              }
-            })
-          })
-
-          map.addSource('provincePoint', {
-            type: 'geojson',
-            data: areaPointFinalgeojson
-          })
-
-          map.addLayer({
-            source: 'provincePoint',
-            id: 'provincePoint',
-            type: "circle",
-            "paint": {
-              "circle-color": rangeColor,
-              "circle-radius": rangeRadius,
-              "circle-stroke-width": 0,
-              "circle-stroke-color": rangeColor,
-              "circle-stroke-opacity": .6,
-              "circle-opacity": .9
-            }
-          })
-
-          let maxRadius = 25
-          let currentRadius = 10
-          setInterval(() => {
-            if (currentRadius < maxRadius) {
-              map.setPaintProperty("provincePoint", "circle-stroke-width", 0 + currentRadius)
-              currentRadius += 5
-            } else {
-              currentRadius = 10
-              map.setPaintProperty("provincePoint", "circle-stroke-width", 0)
-            }
-          }, 200)
-
-          map.on('mousemove', 'provincePoint', function (e) {
-            if (popup) {
-              popup.remove()
-            }
-            const { assetNum, assetAmt, createTime, name, center } = e.features[0].properties
-            const newPopup = `
-              <div class="bgc commonTopLine">
-                <div class="commonBottomLine"></div>
-                <div class="title">资产笔数</div>
-                <div class="val">${assetNum}</div>
-              </div>
-              <div class="bgc commonTopLine">
-                <div class="commonBottomLine"></div>
-                <div class="title">资产金额</div>
-                <div class="val">${assetAmt}</div>
-              </div>
-            `
-            popup = new mapboxgl.Popup({ className: "asd", anchor: "right", offset: 10 })
-              .setLngLat(e.features[0].geometry.coordinates)
-              .setHTML(newPopup)
-              .addTo(map);
-          });
-          map.on('mouseenter', 'provincePoint', function () {
-            map.getCanvas().style.cursor = 'pointer';
-          });
-
-          map.on('mouseleave', 'provincePoint', function () {
-            map.getCanvas().style.cursor = '';
-            if (popup) {
-              popup.remove()
-            }
-          });
+      // 鼠标停留事件
+      map.on('mousemove', 'provinceFill', function (e) {
+        if (popup) {
+          popup.remove()
         }
-      })
+        const { assetNum, assetAmt, createTime, name, center } = e.features[0].properties
+        const newPopup = `
+            <div class="bgc commonTopLine">
+              <div class="commonBottomLine"></div>
+              <div class="title">资产笔数</div>
+              <div class="val">${assetNum || 0}</div>
+            </div>
+            <div class="bgc commonTopLine">
+              <div class="commonBottomLine"></div>
+              <div class="title">资产金额</div>
+              <div class="val">${assetAmt || 0}</div>
+            </div>
+          `
+        popup = new mapboxgl.Popup({ className: "asd", anchor: "right", offset: 10 })
+          .setLngLat(e.lngLat)
+          .setHTML(newPopup)
+          .addTo(map);
+      });
+      map.on('mouseenter', 'provinceFill', function () {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+
+      map.on('mouseleave', 'provinceFill', function () {
+        map.getCanvas().style.cursor = '';
+        if (popup) {
+          popup.remove()
+        }
+      });
+
+      // 省份有数据
+      if (areaPointFinalgeojson.features.length) {
+        map.addSource('provincePoint', {
+          type: 'geojson',
+          data: areaPointFinalgeojson
+        })
+
+        map.addLayer({
+          source: 'provincePoint',
+          id: 'provincePoint',
+          type: "circle",
+          "paint": {
+            "circle-color": rangeColor,
+            "circle-radius": rangeRadius,
+            "circle-stroke-width": 0,
+            "circle-stroke-color": rangeColor,
+            "circle-stroke-opacity": .6,
+            "circle-opacity": .9
+          }
+        })
+
+        let maxRadius = 25
+        let currentRadius = 10
+        setInterval(() => {
+          if (currentRadius < maxRadius) {
+            map.setPaintProperty("provincePoint", "circle-stroke-width", 0 + currentRadius)
+            currentRadius += 5
+          } else {
+            currentRadius = 10
+            map.setPaintProperty("provincePoint", "circle-stroke-width", 0)
+          }
+        }, 200)
+      }
     })
   </script>
 </body>

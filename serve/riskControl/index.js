@@ -348,6 +348,14 @@ router.post('/cockpit/getAssetDstr', (req, res) => {
         "assetAmt": 100000.1,
         "regionCode": "12",
         "regionName": "天津市",
+        "createTime": "2021-11-16" 
+      },
+      {
+        "id": 1,
+        "assetNum": 500000.1,
+        "assetAmt": 500000.1,
+        "regionCode": "23",
+        "regionName": "黑龙江省",
         "createTime": "2021-11-16"
       }
     ],
