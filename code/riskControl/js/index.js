@@ -28,19 +28,19 @@ new Vue({
     tuneOutCount: 0,
     dataStatis: {
       assetAtRisk: {
-        name: '',
+        name: '风险资产总额',
         value: 0
       },
       monCompNum: {
-        name: '',
+        name: '风险监控企业数量',
         value: 0
       },
       nonPerfAssetRto: {
-        name: '',
+        name: '不良资产率',
         value: 0
       },
       connTransRate: {
-        name: '',
+        name: '债务关联交易占比',
         value: 0
       },
       // businessRiskCount: 0,
@@ -127,7 +127,6 @@ new Vue({
   },
   computed: {
     formatCount() {
-      console.log(this.dataStatis.assetAtRisk);
       return String(this.dataStatis.assetAtRisk.value).split('').map(item => Number(item))
     }
   },
@@ -755,7 +754,6 @@ new Vue({
       const res = await getRiskLgScrnParm()
       if (res.code == 200) {
         this.dataStatis = res.data
-        // this.dataStatis.businessRiskCount = 
       }
       // this.dataStatis.businessRiskCount = 55
       // this.dataStatis.nonPerformingAssetsRatio = 2
