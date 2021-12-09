@@ -150,7 +150,7 @@ new Vue({
           right: 0
         },
         grid: {
-          left: '3%',
+          left: (res && res.code == 200) ? '3%' :'13%',
           right: '8%',
           bottom: '3%',
           top: '28%',
@@ -219,7 +219,7 @@ new Vue({
           }
         },
         grid: {
-          left: '3%',
+          left: (res && res.code == 200) ? '5%' :'13%',
           right: '4%',
           bottom: '3%',
           top: '20%',
@@ -288,7 +288,7 @@ new Vue({
           right: 0
         },
         grid: {
-          left: '3%',
+          left: (res && res.code == 200) ? '3%' :'13%',
           right: '8%',
           bottom: '3%',
           top: '28%',
