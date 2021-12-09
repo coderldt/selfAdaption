@@ -254,11 +254,11 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '3%',
+          left: '10%',
           right: '8%',
           bottom: '3%',
           top: '28%',
-          containLabel: true
+          containLabel: false
         },
         xAxis: {
           type: 'category',
@@ -352,11 +352,11 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '3%',
+          left: '10%',
           right: '4%',
           bottom: '3%',
           top: '28%',
-          containLabel: true
+          containLabel: false
         },
         xAxis: {
           type: 'category',
@@ -427,11 +427,11 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '3%',
+          left: '10%',
           right: '8%',
           bottom: '3%',
           top: '28%',
-          containLabel: true
+          containLabel: false
         },
         xAxis: {
           type: 'category',
