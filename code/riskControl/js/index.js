@@ -254,11 +254,11 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '10%',
+          left: (res && res.code == 200) ? '3%' : '10%',
           right: '8%',
           bottom: '3%',
           top: '28%',
-          containLabel: false
+          containLabel: true
         },
         xAxis: {
           type: 'category',
@@ -302,7 +302,7 @@ new Vue({
 
       const xAxisList = []
       const seriesList = []
-      let title = '已过安检门数据/金额'
+      let title = '已过安检门数量/金额'
       if (res && res.code == 200) {
         const safetyCheckObj = res.data.find(i => i.name === '已过安检门数量')
         if (safetyCheckObj && safetyCheckObj.data && safetyCheckObj.data.length) {
@@ -352,11 +352,11 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '10%',
+          left: (res && res.code == 200) ? '3%' : '10%',
           right: '4%',
           bottom: '3%',
           top: '28%',
-          containLabel: false
+          containLabel: true
         },
         xAxis: {
           type: 'category',
@@ -427,11 +427,11 @@ new Vue({
           trigger: 'axis'
         },
         grid: {
-          left: '10%',
+          left: (res && res.code == 200) ? '3%' : '10%',
           right: '8%',
           bottom: '3%',
           top: '28%',
-          containLabel: false
+          containLabel: true
         },
         xAxis: {
           type: 'category',
