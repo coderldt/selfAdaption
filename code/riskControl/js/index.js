@@ -32,7 +32,7 @@ new Vue({
         value: 0
       },
       monCompNum: {
-        name: '风险监控企业数量',
+        name: '风险监控企业数',
         value: 0
       },
       nonPerfAssetRto: {
@@ -40,7 +40,7 @@ new Vue({
         value: 0
       },
       connTransRate: {
-        name: '债务关联交易占比',
+        name: '债务人关联交易占比',
         value: 0
       },
       // businessRiskCount: 0,
@@ -227,7 +227,6 @@ new Vue({
       
       const xAxisList = []
       const seriesList = []
-      let title = '企业准入数据统计'
       if (res && res.code == 200) {
         this.accessDataCount = res.data.data[0].value
 
@@ -238,12 +237,10 @@ new Vue({
         res.data.data.forEach(item => {
           seriesList.push(item.value)
         })
-
-        title = res.data.name
       }
       const option = {
         title: {
-          text: title,
+          text: '准入数据统计',
           textStyle: {
             color: '#87aed8',
             fontSize: '15'
@@ -398,7 +395,6 @@ new Vue({
       const res = await getEntDueDili({ intervalDay })
       const xAxisList = []
       const seriesList = []
-      let title = '尽调企业数量'
       if (res && res.code == 200) {
         if (res.data && res.data.data && res.data.data.length) {
           this.tuneOutCount = res.data.data[0].value
@@ -411,12 +407,10 @@ new Vue({
         res.data.data.forEach(item => {
           seriesList.push(item.value)
         })
-
-        title = res.data.name
       }
       const option = {
         title: {
-          text: title,
+          text: '已尽调企业数量',
           textStyle: {
             color: '#87aed8',
             fontSize: '15'
@@ -569,15 +563,13 @@ new Vue({
       const res = await getModelScrtGate({ intervalDay })
       let yList = []
       let xList = []
-      let title = '安检门模型'
       if (res && res.code == 200) {
         yList = res.data.data.slice(0, 5).map(i => i.name)
         xList = res.data.data.slice(0, 5).map(item => item.value)
-        title = res.data.name
       }
       const option = {
         title: {
-          text: title,
+          text: '安检门模型命中规则分布',
           textStyle: {
             color: '#87aed8',
             fontSize: '15'
@@ -669,7 +661,7 @@ new Vue({
       }
       const option = {
         title: {
-          text: '业务风险识别模型明命中规则分布',
+          text: '业务风险识别模型命中规则分布',
           textStyle: {
             color: '#87aed8',
             fontSize: '15'
