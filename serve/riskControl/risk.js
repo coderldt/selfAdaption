@@ -211,32 +211,39 @@ router.post('/monitor/getScrtGate', async (req, res) => {
 
 router.post('/monitor/getEntDueDili', async (req, res) => {
   res.send({
-    "code": "200",
-    "msg": "响应成功",
-    "data": {
-      "data": [
-        {
-          "dataTime": "2021-11-27",
-          "value": 261000000
-        },
-        {
-          "dataTime": "2021-11-26",
-          "value": 50
-        },
-        {
-          "dataTime": "2021-11-25",
-          "value": 20
-        },
-        {
-          "dataTime": "2021-11-24",
-          "value": 300
-        }
-      ],
-      "name": "尽调企业数量"
-    },
-    "serialNumber": "10000202111282157064",
-    "success": true
+    code: "10000",
+    data: null,
+    msg: "系统异常",
+    serialNumber: "10000202112101110492",
+    success: false
   })
+  // res.send({
+  //   "code": "200",
+  //   "msg": "响应成功",
+  //   "data": {
+  //     "data": [
+  //       {
+  //         "dataTime": "2021-11-27",
+  //         "value": 261000000
+  //       },
+  //       {
+  //         "dataTime": "2021-11-26",
+  //         "value": 50
+  //       },
+  //       {
+  //         "dataTime": "2021-11-25",
+  //         "value": 20
+  //       },
+  //       {
+  //         "dataTime": "2021-11-24",
+  //         "value": 300
+  //       }
+  //     ],
+  //     "name": "尽调企业数量"
+  //   },
+  //   "serialNumber": "10000202111282157064",
+  //   "success": true
+  // })
 })
 
 router.post('/monitor/getRiskCreditorConc', async (req, res) => {

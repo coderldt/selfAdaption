@@ -453,7 +453,6 @@ new Vue({
         },
         series: [
           {
-            name: res.data.name,
             type: 'line',
             stack: 'Total',
             smooth: true,
