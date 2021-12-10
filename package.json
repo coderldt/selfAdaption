@@ -1,0 +1,12 @@
+{
+  "name": "business",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/coderldt/selfAdaption.git",
+  "author": "lvchao <chao.lv@brgroup.com>",
+  "license": "MIT",
+  "scripts": {
+    "devRisk": "http-server ./code/riskControl/ -p 1001 -P http://monitor.dev.sc.zjzb.in",
+    "devBusin": "http-server ./code/business/ -p 1002 -P http://cockpit.dev.sc.zjzb.in/"
+  }
+}
